@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raquel Ollier</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --bg:         #f7f4ef;
+      --bg2:        #ede8e0;
+      --surface:    #ffffff;
+      --text:       #18140f;
+      --text-soft:  #7a6a5a;
+      --accent:     #c26a35;
+      --accent-lt:  #e8956a;
+      --accent-glow:rgba(194,106,53,.13);
+      --border:     rgba(194,106,53,.16);
+      --nav-bg:     rgba(247,244,239,.9);
+    }
+    [data-theme="dark"] {
+      --bg:         #0b0812;
+      --bg2:        #110d1c;
+      --surface:    #160f24;
+      --text:       #f0eaf8;
+      --text-soft:  #9080b0;
+      --accent:     #c084fc;
+      --accent-lt:  #d4aaff;
+      --accent-glow:rgba(192,132,252,.14);
+      --border:     rgba(192,132,252,.16);
+      --nav-bg:     rgba(11,8,18,.9);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Outfit',sans-serif;
+      background:var(--bg);color:var(--text);
+      overflow-x:hidden;
+      transition:background .55s,color .55s;
+    }
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+
+    /* CURSOR */
+    .cursor,.cursor-ring{position:fixed;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);z-index:9999}
+    .cursor{width:8px;height:8px;background:var(--accent)}
+    .cursor-ring{width:34px;height:34px;border:1.5px solid var(--accent);opacity:.45;z-index:9998}
+
+    /* NAV */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:500;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:1.8rem 4rem;
+      transition:padding .4s,background .4s,border-color .4s;
+      border-bottom:1px solid transparent;
+    }
+    nav.s{padding:1rem 4rem;background:var(--nav-bg);backdrop-filter:blur(18px);border-bottom-color:var(--border)}
+    .nav-logo{
+      font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;
+      letter-spacing:.04em;color:var(--text);opacity:0;
+    }
+    .nav-r{display:flex;align-items:center;gap:2.5rem}
+    .nav-links{display:flex;gap:2.2rem}
+    .nav-links a{
+      font-size:.7rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--text-soft);transition:color .3s;position:relative;
+    }
+    .nav-links a::after{
+      content:'';position:absolute;bottom:-3px;left:0;right:0;
+      height:1px;background:var(--accent);
+      transform:scaleX(0);transform-origin:left;transition:transform .3s;
+    }
+    .nav-links a:hover{color:var(--accent)}
+    .nav-links a:hover::after{transform:scaleX(1)}
+    .tbtn{
+      width:36px;height:20px;border-radius:99px;
+      background:transparent;border:1.5px solid var(--accent);cursor:pointer;
+      position:relative;flex-shrink:0;
+    }
+    .tbtn::after{
+      content:'';position:absolute;top:2.5px;left:2.5px;
+      width:11px;height:11px;border-radius:50%;background:var(--accent);
+      transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    [data-theme="dark"] .tbtn::after{transform:translateX(16px)}
+
+    /* ══════ HERO ══════ */
+    .hero{
+      position:relative;width:100%;height:100vh;min-height:600px;
+      overflow:hidden;display:flex;align-items:flex-end;
+    }
+
+    /* Fundo — foto ou placeholder */
+    .hero-bg{position:absolute;inset:0;z-index:0;background:var(--bg2)}
+    /* Com imagem real: .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center top} */
+    .hero-bg-ph{
+      width:100%;height:100%;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;gap:1rem;
+      background:linear-gradient(150deg,var(--bg2) 0%,var(--bg) 100%);
+    }
+    .hero-bg-ph svg{opacity:.15;color:var(--accent)}
+    .hero-bg-ph span{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-soft);opacity:.4}
+
+    /* gradiente de fundo → texto embaixo legível */
+    .hero-ov{
+      position:absolute;inset:0;z-index:1;
+      background:linear-gradient(to top, var(--bg) 0%, rgba(0,0,0,0) 52%);
+    }
+    [data-theme="dark"] .hero-ov{
+      background:linear-gradient(to top, var(--bg) 0%, rgba(0,0,0,.18) 52%);
+    }
+
+    /* nome gigante centralizado */
+    .hero-name{
+      position:absolute;top:50%;left:50%;
+      transform:translate(-50%,-50%);
+      z-index:2;text-align:center;width:100%;
+      pointer-events:none;
+    }
+    .hn-row{display:block;overflow:hidden;line-height:.92}
+    .hn-word{
+      display:inline-block;
+      font-family:'Playfair Display',serif;
+      font-size:clamp(5rem,15vw,16rem);
+      font-weight:700;letter-spacing:-.02em;
+      transform:translateY(110%);opacity:0;
+      will-change:transform,opacity;
+    }
+    .hn-word.italic{font-style:italic;color:var(--accent)}
+
+    /* rodapé do hero */
+    .hero-bot{
+      position:relative;z-index:3;
+      width:100%;padding:0 4rem 3.5rem;
+      display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;
+    }
+    .hero-tagline{
+      font-size:clamp(.85rem,1.3vw,1rem);font-weight:300;line-height:1.7;
+      color:var(--text-soft);max-width:360px;
+      opacity:0;transform:translateY(28px);
+    }
+    .hero-tagline strong{font-weight:500;color:var(--accent)}
+    .hero-badges{
+      display:flex;flex-direction:column;align-items:flex-end;gap:.7rem;
+      opacity:0;transform:translateY(28px);
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:.5rem;
+      padding:.5rem 1.2rem;border-radius:2px;
+      border:1px solid var(--border);background:var(--accent-glow);
+      font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--accent);backdrop-filter:blur(8px);
+    }
+    .badge::before{content:'✦';font-size:.55rem}
+    .hero-scroll{
+      display:flex;flex-direction:column;align-items:center;gap:.5rem;
+      opacity:0;
+    }
+    .hero-scroll span{
+      font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+      color:var(--text-soft);writing-mode:vertical-rl;
+    }
+    .sbar{
+      width:1px;height:52px;
+      background:linear-gradient(to bottom,var(--accent),transparent);
+      animation:sd 2.2s ease-in-out infinite;
+    }
+    @keyframes sd{
+      0%{opacity:0;transform:scaleY(0);transform-origin:top}
+      45%{opacity:1;transform:scaleY(1)}
+      100%{opacity:0;transform:scaleY(1);transform-origin:bottom}
+    }
+
+    /* ══════ DIVIDER ══════ */
+    .dv{height:1px;background:var(--border);margin:0 4rem}
+
+    /* ══════ SOBRE ══════ */
+    .sobre{
+      padding:8rem 4rem;display:grid;
+      grid-template-columns:1fr 1.15fr;gap:7rem;align-items:center;
+    }
+    .sobre-photo{
+      width:100%;aspect-ratio:3/4;border-radius:2px;overflow:hidden;
+      background:var(--bg2);border:1px solid var(--border);position:relative;
+    }
+    .sobre-photo img{width:100%;height:100%;object-fit:cover;object-position:top}
+    .sobre-photo-ph{
+      width:100%;height:100%;display:flex;flex-direction:column;
+      align-items:center;justify-content:flex-end;padding:2rem;gap:.5rem;
+      background:linear-gradient(160deg,var(--bg2),var(--bg));
+    }
+    .sobre-photo-ph svg{opacity:.18;color:var(--accent)}
+    .sobre-photo-ph span{font-size:.72rem;color:var(--text-soft);font-style:italic;text-align:center}
+    .photo-foot{
+      position:absolute;bottom:0;left:0;right:0;
+      padding:1.2rem 1.5rem;
+      background:linear-gradient(to top,var(--bg) 55%,transparent);
+      display:flex;justify-content:space-between;align-items:flex-end;
+    }
+    .photo-foot label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-soft)}
+    .photo-foot strong{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;color:var(--accent)}
+
+    .eyebrow{
+      font-size:.67rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase;
+      color:var(--accent);display:flex;align-items:center;gap:.7rem;margin-bottom:1.1rem;
+    }
+    .eyebrow::before{content:'';width:28px;height:1px;background:var(--accent)}
+    .stitle{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.1rem,3.8vw,3.2rem);font-weight:400;line-height:1.12;
+      color:var(--text);margin-bottom:1.8rem;
+    }
+    .stitle em{font-style:italic;color:var(--accent)}
+    .sbody p{font-size:.92rem;font-weight:300;line-height:1.85;color:var(--text-soft);margin-bottom:1rem}
+    .squote{
+      font-family:'Playfair Display',serif;font-size:1.3rem;font-style:italic;
+      color:var(--accent);border-left:2px solid var(--accent);
+      padding-left:1.3rem;margin:2.2rem 0;line-height:1.45;
+    }
+    .stats{display:flex;gap:2.4rem;padding-top:2rem;border-top:1px solid var(--border);margin-top:2.2rem}
+    .stat-n{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--accent);line-height:1}
+    .stat-l{font-size:.72rem;font-weight:300;color:var(--text-soft);letter-spacing:.07em;margin-top:.25rem}
+
+    /* ══════ ATUAÇÃO ══════ */
+    .atuacao{padding:8rem 4rem;background:var(--bg2)}
+    .atuacao-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3.5rem;gap:2rem}
+    .atuacao-desc{font-size:.88rem;font-weight:300;line-height:1.75;color:var(--text-soft);max-width:320px}
+    .agrid{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      border:1px solid var(--border);border-radius:2px;overflow:hidden;
+      gap:1px;background:var(--border);
+    }
+    .aitem{
+      background:var(--surface);padding:2.2rem;
+      position:relative;overflow:hidden;cursor:default;transition:background .35s;
+    }
+    .aitem::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,var(--accent-glow),transparent 70%);
+      opacity:0;transition:opacity .4s;
+    }
+    .aitem:hover{background:var(--bg)}
+    .aitem:hover::after{opacity:1}
+    .anum{
+      font-family:'Playfair Display',serif;font-size:.78rem;
+      color:var(--accent);opacity:.45;letter-spacing:.1em;margin-bottom:1.4rem;
+    }
+    .aitem h3{
+      font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;
+      color:var(--text);margin-bottom:.6rem;line-height:1.3;
+    }
+    .aitem p{font-size:.82rem;font-weight:300;line-height:1.68;color:var(--text-soft)}
+
+    /* ══════ CASES ══════ */
+    .cases{padding:8rem 4rem}
+    .cases-hd{margin-bottom:3.5rem}
+
+    /* grid layout: 2 colunas no topo, 1 full embaixo */
+    .cgrid-top{
+      display:grid;grid-template-columns:1fr 1fr;
+      border:1px solid var(--border);border-radius:2px;overflow:hidden;
+      margin-bottom:1px;background:var(--border);gap:1px;
+    }
+    /* coluna direita: 2 cards empilhados */
+    .cgrid-right{display:flex;flex-direction:column;gap:1px}
+
+    .ccard{
+      background:var(--bg);padding:2.5rem;
+      position:relative;overflow:hidden;transition:background .35s;cursor:default;
+    }
+    .ccard:hover{background:var(--bg2)}
+    .ccard-img{
+      width:100%;aspect-ratio:16/9;
+      background:var(--bg2);border:1px solid var(--border);border-radius:1px;
+      margin-bottom:1.8rem;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;overflow:hidden;
+    }
+    .ccard-img.tall{aspect-ratio:4/3}
+    .ccard-img svg{opacity:.22;color:var(--accent)}
+    .ccard-img span{font-size:.7rem;color:var(--text-soft);font-style:italic;text-align:center;padding:0 1rem;line-height:1.5}
+    .ctag{
+      font-size:.63rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--accent);display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;
+    }
+    .ctag::before{content:'';width:14px;height:1px;background:var(--accent)}
+    .ccard h3{
+      font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;
+      color:var(--text);margin-bottom:.8rem;line-height:1.2;
+    }
+    .ccard p{font-size:.83rem;font-weight:300;line-height:1.72;color:var(--text-soft);margin-bottom:1.4rem}
+    .chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.4rem}
+    .chip{
+      padding:.25rem .75rem;border-radius:2px;
+      border:1px solid var(--border);background:var(--accent-glow);
+      font-size:.68rem;font-weight:400;letter-spacing:.05em;color:var(--text-soft);
+    }
+    .cresult{
+      padding:.9rem 1.1rem;border-left:2px solid var(--accent);
+      background:var(--accent-glow);border-radius:0 2px 2px 0;
+    }
+    .cresult label{font-size:.62rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.25rem}
+    .cresult span{font-size:.82rem;font-weight:300;color:var(--text-soft);line-height:1.5}
+
+    /* case full width */
+    .cfull{
+      background:var(--bg2);padding:2.5rem;
+      border:1px solid var(--border);border-radius:2px;
+      transition:background .35s;cursor:default;
+    }
+    .cfull:hover{background:var(--bg)}
+    .cfull .ccard-img{aspect-ratio:21/9}
+
+    /* ══════ CONTATO ══════ */
+    .contato{
+      padding:9rem 4rem;background:var(--bg2);
+      display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center;
+    }
+    .contato-t{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.3rem,4.5vw,4rem);font-weight:400;line-height:1.1;
+      margin-bottom:1.3rem;
+    }
+    .contato-t em{font-style:italic;color:var(--accent)}
+    .contato-sub{font-size:.9rem;font-weight:300;line-height:1.8;color:var(--text-soft);max-width:360px}
+    .clinks{display:flex;flex-direction:column;gap:.9rem}
+    .clink{
+      display:flex;align-items:center;gap:1.1rem;
+      padding:1.3rem 1.6rem;
+      border:1px solid var(--border);border-radius:2px;
+      background:var(--surface);
+      transition:border-color .3s,background .3s,transform .3s;
+    }
+    .clink:hover{border-color:var(--accent);background:var(--accent-glow);transform:translateX(6px)}
+    .clink-ico{
+      width:40px;height:40px;flex-shrink:0;border-radius:2px;
+      background:var(--accent-glow);border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;color:var(--accent);
+      transition:background .3s,color .3s;
+    }
+    .clink:hover .clink-ico{background:var(--accent);color:#fff}
+    .clink-b{flex:1}
+    .clink-b label{font-size:.62rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--text-soft);display:block;margin-bottom:.2rem}
+    .clink-b span{font-size:.88rem;font-weight:400;color:var(--text)}
+    .clink-arr{color:var(--text-soft);transition:transform .3s,color .3s}
+    .clink:hover .clink-arr{transform:translateX(4px);color:var(--accent)}
+
+    /* ══════ FOOTER ══════ */
+    footer{
+      padding:1.8rem 4rem;display:flex;align-items:center;justify-content:space-between;
+      border-top:1px solid var(--border);
+    }
+    footer span{font-size:.7rem;color:var(--text-soft);letter-spacing:.05em}
+    .flogo{font-family:'Playfair Display',serif;font-size:.95rem;font-style:italic;color:var(--accent)}
+
+    /* ══════ SCROLL REVEAL ══════ */
+    .sr{opacity:0;transform:translateY(46px);will-change:transform,opacity}
+    .sr-l{opacity:0;transform:translateX(-44px);will-change:transform,opacity}
+    .sr-r{opacity:0;transform:translateX(44px);will-change:transform,opacity}
+    .sr-s{opacity:0;transform:scale(.93);will-change:transform,opacity}
+
+    /* ══════ RESPONSIVE ══════ */
+    @media(max-width:960px){
+      nav,nav.s{padding:1rem 1.5rem}
+      .nav-links{display:none}
+      .dv{margin:0 1.5rem}
+      .sobre,.cases,.contato,.atuacao{padding:5rem 1.5rem}
+      .hero-bot{padding:0 1.5rem 2.5rem;flex-direction:column;align-items:flex-start}
+      .hero-badges{align-items:flex-start}
+      .hero-scroll{display:none}
+      .sobre{grid-template-columns:1fr;gap:3rem}
+      .agrid{grid-template-columns:1fr 1fr}
+      .atuacao-hd{flex-direction:column;gap:1rem}
+      .cgrid-top{grid-template-columns:1fr}
+      .contato{grid-template-columns:1fr;gap:3rem}
+      footer{flex-direction:column;gap:.7rem;text-align:center}
+    }
+    @media(max-width:600px){
+      .agrid{grid-template-columns:1fr}
+      .stats{flex-wrap:wrap;gap:1.5rem}
+      .hn-word{font-size:clamp(3.5rem,18vw,6rem)}
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo" id="navLogo">Raquel Ollier</div>
+  <div class="nav-r">
+    <div class="nav-links">
+      <a href="#sobre">Sobre</a>
+      <a href="#atuacao">Atuação</a>
+      <a href="#cases">Cases</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <button class="tbtn" id="tbtn" aria-label="Alternar tema"></button>
+  </div>
+</nav>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="hero" id="hero">
+
+  <!-- Fundo (foto) -->
+  <div class="hero-bg">
+    <!--
+      COM FOTO — substitua o bloco abaixo por:
+      <img src="raquel-hero.jpg" alt="Raquel Ollier" />
+    -->
+    <div class="hero-bg-ph">
+      <svg width="72" height="72" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width=".8"
+          d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width=".8" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+      <span>foto principal aqui</span>
+    </div>
+  </div>
+  <div class="hero-ov"></div>
+
+  <!-- Nome — animação sequencial -->
+  <div class="hero-name">
+    <span class="hn-row"><span class="hn-word" id="w1">Raquel</span></span>
+    <span class="hn-row"><span class="hn-word italic" id="w2">Ollier</span></span>
+  </div>
+
+  <!-- Rodapé do hero -->
+  <div class="hero-bot">
+    <p class="hero-tagline" id="htag">
+      Estrategista de marketing com trajetória construída dentro da operação.<br/>
+      Do conteúdo à liderança — <strong>conectando tudo.</strong>
+    </p>
+    <div class="hero-scroll" id="hscroll">
+      <div class="sbar"></div>
+      <span>scroll</span>
+    </div>
+    <div class="hero-badges" id="hbdg">
+      <div class="badge">+8 anos de experiência</div>
+      <div class="badge">Estratégia · Liderança · Conteúdo</div>
+    </div>
+  </div>
+
+</section>
+
+<div class="dv"></div>
+
+<!-- ══════════════════════ SOBRE ══════════════════════ -->
+<section class="sobre" id="sobre">
+  <div class="sr-l">
+    <div class="sobre-photo">
+      <!--
+        COM FOTO:
+        <img src="raquel-sobre.jpg" alt="Raquel Ollier" />
+      -->
+      <div class="sobre-photo-ph">
+        <svg width="44" height="44" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+            d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span>foto · seção sobre</span>
+      </div>
+      <div class="photo-foot">
+        <label>Estrategista</label>
+        <strong>Raquel.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="eyebrow sr">Quem sou</p>
+    <h2 class="stitle sr">Cresci fazendo.<br/>Hoje eu <em>dirijo.</em></h2>
+    <div class="sbody">
+      <p class="sr">Trabalho com marketing e conteúdo digital desde os 17 anos. Cresci entendendo cada etapa do processo criativo e hoje atuo estruturando direção, prioridades e crescimento de marcas e equipes.</p>
+      <blockquote class="squote sr">"Meu diferencial não é só fazer, é conectar tudo."</blockquote>
+      <p class="sr">Transformo demandas em planos claros, organizo prioridades, direciono times e apoio decisões estratégicas junto a clientes e liderança.</p>
+    </div>
+    <div class="stats sr">
+      <div><div class="stat-n">17</div><div class="stat-l">Idade ao começar</div></div>
+      <div><div class="stat-n">+8</div><div class="stat-l">Anos de experiência</div></div>
+      <div><div class="stat-n">∞</div><div class="stat-l">Conexões construídas</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="dv"></div>
+
+<!-- ══════════════════════ ATUAÇÃO ══════════════════════ -->
+<section class="atuacao" id="atuacao">
+  <div class="atuacao-hd">
+    <div>
+      <p class="eyebrow sr">Como atuo</p>
+      <h2 class="stitle sr" style="margin-bottom:0">Minha <em>atuação</em></h2>
+    </div>
+    <p class="atuacao-desc sr">Organizo marcas, equipes e processos — transformando demandas em planos claros com resultados reais.</p>
+  </div>
+  <div class="agrid sr-s">
+    <div class="aitem"><div class="anum">01</div><h3>Estratégia de Posicionamento</h3><p>Direcionamento estratégico de conteúdo alinhado ao posicionamento e crescimento de marca.</p></div>
+    <div class="aitem"><div class="anum">02</div><h3>Liderança de Equipe</h3><p>Estruturação de equipe multidisciplinar com definição de hierarquia e fluxos decisórios.</p></div>
+    <div class="aitem"><div class="anum">03</div><h3>Direção Criativa</h3><p>Roteirização, direção e estruturação de narrativa de marca com propósito e autenticidade.</p></div>
+    <div class="aitem"><div class="anum">04</div><h3>Gestão de Processos</h3><p>Organização de cronogramas, captações e fluxos de comunicação com clareza operacional.</p></div>
+    <div class="aitem"><div class="anum">05</div><h3>Decisões Estratégicas</h3><p>Condução e participação ativa em decisões junto a clientes e liderança.</p></div>
+    <div class="aitem"><div class="anum">06</div><h3>Campanhas e Ações</h3><p>Planejamento integrado de campanhas com visão de conteúdo, marca e resultados.</p></div>
+  </div>
+</section>
+
+<div class="dv"></div>
+
+<!-- ══════════════════════ CASES ══════════════════════ -->
+<section class="cases" id="cases">
+  <div class="cases-hd">
+    <p class="eyebrow sr">Resultados reais</p>
+    <h2 class="stitle sr" style="margin-bottom:0">Cases de <em>sucesso</em></h2>
+  </div>
+
+  <!-- Top: 2 colunas -->
+  <div class="cgrid-top sr-s">
+
+    <!-- Esquerda: case grande -->
+    <div class="ccard">
+      <div class="ccard-img tall">
+        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <span>Materiais de padronização<br/>e organograma da agência</span>
+      </div>
+      <div class="ctag">Estrutura Operacional</div>
+      <h3>Estruturação da base operacional de agência</h3>
+      <p>Crescimento trouxe complexidade: demandas centralizadas, sobreposição de funções e falhas de comunicação entre atendimento, social media e criação.</p>
+      <div class="chips">
+        <span class="chip">Asana</span><span class="chip">Atendimento</span>
+        <span class="chip">Hierarquia</span><span class="chip">Fluxo de Aprovação</span>
+      </div>
+      <div class="cresult"><label>Impacto</label><span>Maior previsibilidade, redução de ruídos internos e clareza de papéis.</span></div>
+    </div>
+
+    <!-- Direita: 2 cards empilhados -->
+    <div class="cgrid-right">
+      <div class="ccard" style="flex:1">
+        <div class="ccard-img">
+          <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Grid Instagram do arquiteto</span>
+        </div>
+        <div class="ctag">Posicionamento & Autoridade</div>
+        <h3>Fortalecimento de posicionamento e autoridade</h3>
+        <p>Arquiteto com forte identidade precisava refinar a comunicação digital sem perder autenticidade.</p>
+        <div class="chips"><span class="chip">Direção Criativa</span><span class="chip">Pilares de Conteúdo</span><span class="chip">Roteirização</span></div>
+        <div class="cresult"><label>Resultado</label><span>Autoridade consolidada e consistência estratégica elevada.</span></div>
+      </div>
+      <div class="ccard" style="flex:1">
+        <div class="ctag">Expansão de Posicionamento</div>
+        <h3>Estruturação estratégica e expansão de posicionamento</h3>
+        <p>Escritório em fase de consolidação precisava separar marca pessoal da institucional e organizar produção de conteúdo.</p>
+        <div class="chips"><span class="chip">Posicionamento</span><span class="chip">Marca Pessoal</span><span class="chip">Marca Institucional</span></div>
+        <div class="cresult"><label>Resultado</label><span>Clareza narrativa e autoridade digital crescente.</span></div>
+      </div>
+    </div>
+
+  </div><!-- /cgrid-top -->
+
+  <!-- Bottom: full width -->
+  <div class="cfull sr" style="margin-top:1px">
+    <div class="ccard-img" style="aspect-ratio:21/9">
+      <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      <span>Fotos dos eventos e integração de marcas</span>
+    </div>
+    <div class="ctag">Marketing de Experiência</div>
+    <h3>Marketing de experiência e integração de marcas</h3>
+    <p style="max-width:640px">Espaço que reúne diversas marcas e realiza eventos estratégicos ao longo do ano. O desafio era organizar comunicação institucional, alinhar narrativa entre lojistas e estruturar cobertura estratégica.</p>
+    <div class="chips">
+      <span class="chip">Comunicação Institucional</span><span class="chip">Cobertura de Eventos</span>
+      <span class="chip">Storytelling Pós-evento</span><span class="chip">Narrativa Digital</span><span class="chip">Multi-marcas</span>
+    </div>
+    <div class="cresult" style="max-width:520px"><label>Resultado</label><span>Comunicação mais estratégica, cobertura com intencionalidade e fortalecimento da imagem institucional.</span></div>
+  </div>
+
+</section>
+
+<div class="dv"></div>
+
+<!-- ══════════════════════ CONTATO ══════════════════════ -->
+<section class="contato" id="contato">
+  <div>
+    <p class="eyebrow sr">Vamos trabalhar juntos</p>
+    <h2 class="contato-t sr">Pronta para<br/><em>conectar</em><br/>sua marca.</h2>
+    <p class="contato-sub sr">Estruturo marcas, equipes e processos. Se você quer crescer com estratégia, fale comigo.</p>
+  </div>
+  <div class="clinks sr-r">
+    <a href="mailto:contato@raquelollier.com" class="clink">
+      <div class="clink-ico"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+      <div class="clink-b"><label>E-mail</label><span>contato@raquelollier.com</span></div>
+      <span class="clink-arr">→</span>
+    </a>
+    <a href="https://linkedin.com" target="_blank" class="clink">
+      <div class="clink-ico"><svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></div>
+      <div class="clink-b"><label>LinkedIn</label><span>Raquel Ollier</span></div>
+      <span class="clink-arr">→</span>
+    </a>
+    <a href="https://wa.me" target="_blank" class="clink">
+      <div class="clink-ico"><svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+      <div class="clink-b"><label>WhatsApp</label><span>Fale comigo</span></div>
+      <span class="clink-arr">→</span>
+    </a>
+    <a href="https://instagram.com" target="_blank" class="clink">
+      <div class="clink-ico"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+      <div class="clink-b"><label>Instagram</label><span>@raquelollier</span></div>
+      <span class="clink-arr">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo">Raquel Ollier</div>
+  <span>© 2026 · Estrategista de Marketing</span>
+  <span>Feito com estratégia ✦</span>
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── CURSOR ──
+  const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;gsap.to(cur,{x:mx,y:my,duration:.06})});
+  (function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;gsap.set(ring,{x:rx,y:ry});requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>gsap.to(ring,{width:52,height:52,opacity:.75,duration:.3}));
+    el.addEventListener('mouseleave',()=>gsap.to(ring,{width:34,height:34,opacity:.45,duration:.3}));
+  });
+
+  // ── THEME ──
+  const root=document.documentElement;
+  const tbtn=document.getElementById('tbtn');
+  root.setAttribute('data-theme',localStorage.getItem('theme')||'light');
+  tbtn.addEventListener('click',()=>{
+    const n=root.getAttribute('data-theme')==='light'?'dark':'light';
+    root.setAttribute('data-theme',n);localStorage.setItem('theme',n);
+  });
+
+  // ── NAV ──
+  const nav=document.getElementById('nav');
+  ScrollTrigger.create({start:60,onUpdate:s=>nav.classList.toggle('s',s.progress>0)});
+
+  // ── HERO SEQUENCE ──
+  // Ordem: "Raquel" sobe → "Ollier" sobe (overlap) → tagline fade-up → badges → scroll hint → navLogo
+  gsap.timeline({delay:.25})
+    .to('#w1',{y:'0%',opacity:1,duration:1.05,ease:'expo.out'})
+    .to('#w2',{y:'0%',opacity:1,duration:1.05,ease:'expo.out'},'-=.65')
+    .to('#htag',{opacity:1,y:0,duration:.85,ease:'power3.out'},'-=.3')
+    .to('#hbdg',{opacity:1,y:0,duration:.75,ease:'power3.out'},'-=.6')
+    .to('#hscroll',{opacity:1,duration:.55},'-=.35')
+    .to('#navLogo',{opacity:1,duration:.45},'-=.3');
+
+  // ── SCROLL REVEALS ──
+  const srOpts=(x,y,s)=>({
+    opacity:0,x:x||0,y:y||0,scale:s||1,
+  });
+  gsap.utils.toArray('.sr').forEach(el=>
+    gsap.fromTo(el,{opacity:0,y:48},{opacity:1,y:0,duration:.9,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 87%',toggleActions:'play none none none'}})
+  );
+  gsap.utils.toArray('.sr-l').forEach(el=>
+    gsap.fromTo(el,{opacity:0,x:-46},{opacity:1,x:0,duration:.95,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 87%',toggleActions:'play none none none'}})
+  );
+  gsap.utils.toArray('.sr-r').forEach(el=>
+    gsap.fromTo(el,{opacity:0,x:46},{opacity:1,x:0,duration:.95,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 87%',toggleActions:'play none none none'}})
+  );
+  gsap.utils.toArray('.sr-s').forEach(el=>
+    gsap.fromTo(el,{opacity:0,scale:.92},{opacity:1,scale:1,duration:.95,ease:'back.out(1.3)',
+      scrollTrigger:{trigger:el,start:'top 87%',toggleActions:'play none none none'}})
+  );
+
+  // atuacao items stagger
+  gsap.utils.toArray('.aitem').forEach((el,i)=>{
+    ScrollTrigger.create({trigger:el,start:'top 90%',
+      onEnter:()=>gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.65,delay:i*.06,ease:'power3.out'})
+    });
+  });
+</script>
+</body>
+</html>
