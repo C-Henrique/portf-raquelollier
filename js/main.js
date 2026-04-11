@@ -117,6 +117,85 @@ document.addEventListener('DOMContentLoaded', function() {
       ),
     });
   });
+
+  /* ─── 7. LIGHTBOX — Cases de Sucesso (Desktop) ─── */
+  // isTouchDevice já foi declarado na linha 27
+  
+  if (!isTouchDevice) {
+    // Desktop: Lightbox ao clicar na imagem
+    const caseImgWrappers = document.querySelectorAll('.case-img-wrapper');
+    const lightbox = document.createElement('div');
+    lightbox.className = 'case-lightbox';
+    document.body.appendChild(lightbox);
+
+    const casesData = [
+      { image: 'img/grid-insta.jpeg', alt: 'Grid Instagram - Fortalecimento de posicionamento', tag: 'Posicionamento & Autoridade' },
+      { image: 'img/planejamento-doc.jpeg', alt: 'Planejamento estratégico - Estruturação de marca', tag: 'Expansão de Posicionamento' },
+      { image: null, alt: 'Estrutura Operacional', tag: 'Estrutura Operacional' }
+    ];
+
+    let currentCaseIndex = 0;
+
+    function createLightboxContent(index) {
+      const caseData = casesData[index];
+      const imageHTML = caseData.image 
+        ? `<img src="${caseData.image}" alt="${caseData.alt}">`
+        : `<svg width="80" height="80" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`;
+
+      return `
+        <button class="lightbox-close" aria-label="Fechar">&times;</button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Anterior">&#8249;</button>
+        <button class="lightbox-nav lightbox-next" aria-label="Próximo">&#8250;</button>
+        <div class="lightbox-content" data-current="${index}">
+          <div class="lightbox-img">${imageHTML}</div>
+        </div>
+        <div class="lightbox-counter">${index + 1} / ${casesData.length}</div>
+      `;
+    }
+
+    function openLightbox(index) {
+      currentCaseIndex = index;
+      lightbox.innerHTML = createLightboxContent(index);
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+      lightbox.querySelector('.lightbox-prev').addEventListener('click', () => navigateLightbox(-1));
+      lightbox.querySelector('.lightbox-next').addEventListener('click', () => navigateLightbox(1));
+      
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function navigateLightbox(direction) {
+      currentCaseIndex = (currentCaseIndex + direction + casesData.length) % casesData.length;
+      lightbox.innerHTML = createLightboxContent(currentCaseIndex);
+      
+      lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+      lightbox.querySelector('.lightbox-prev').addEventListener('click', () => navigateLightbox(-1));
+      lightbox.querySelector('.lightbox-next').addEventListener('click', () => navigateLightbox(1));
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+    }
+
+    caseImgWrappers.forEach((wrapper, index) => {
+      wrapper.addEventListener('click', () => openLightbox(index));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+  }
   
   console.log('main.js executado com sucesso');
 });

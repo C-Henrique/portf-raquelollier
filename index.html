@@ -104,17 +104,14 @@
 <section class="sobre" id="sobre">
   <div class="sr-l">
     <div class="sobre-photo">
-      <!--
-        COM FOTO:
-        <img src="raquel-sobre.jpg" alt="Raquel Ollier" />
-      -->
       <div class="sobre-photo-ph">
-        <svg width="44" height="44" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <img src="img/255A9657.jpg" alt="Raquel Ollier" />
+        <!-- <svg width="44" height="44" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
             d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
         </svg>
-        <span>foto · seção sobre</span>
+        <span>foto · seção sobre</span> -->
       </div>
       <div class="photo-foot">
         <label>Estrategista</label>
@@ -167,66 +164,78 @@
   <div class="cases-hd">
     <p class="eyebrow sr">Resultados reais</p>
     <h2 class="stitle sr mb-0">Cases de <em>sucesso</em></h2>
+    <p class="cases-desc sr">Projetos que transformaram marcas e fortaleceram posicionamentos.</p>
   </div>
 
-  <!-- Top: 2 colunas -->
-  <div class="cgrid-top sr-s">
-
-    <!-- Esquerda: case grande -->
-    <div class="ccard">
-      <div class="ccard-img tall">
-        <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        <span>Materiais de padronização<br/>e organograma da agência</span>
+  <!-- Galeria de Cases: 2 colunas cima + 1 full width embaixo -->
+  <div class="cases-gallery sr-s">
+    
+    <!-- Case 1: Fortalecimento de Posicionamento (esquerda) -->
+    <article class="case-card" data-case="0">
+      <div class="case-img-wrapper case-img-tall" onclick="openImageModal(this)">
+        <img src="img/grid-insta.jpeg" alt="Grid Instagram do arquiteto - Fortalecimento de posicionamento" width="70%">
       </div>
-      <div class="ctag">Estrutura Operacional</div>
-      <h3>Estruturação da base operacional de agência</h3>
-      <p>Crescimento trouxe complexidade: demandas centralizadas, sobreposição de funções e falhas de comunicação entre atendimento, social media e criação.</p>
-      <div class="chips">
-        <span class="chip">Asana</span><span class="chip">Atendimento</span>
-        <span class="chip">Hierarquia</span><span class="chip">Fluxo de Aprovação</span>
-      </div>
-      <div class="cresult"><label>Impacto</label><span>Maior previsibilidade, redução de ruídos internos e clareza de papéis.</span></div>
-    </div>
-
-    <!-- Direita: 2 cards empilhados -->
-    <div class="cgrid-right">
-      <div class="ccard">
-        <div class="ccard-img">
-          <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          <span>Grid Instagram do arquiteto</span>
-        </div>
-        <div class="ctag">Posicionamento & Autoridade</div>
+      <div class="case-content">
+        <span class="ctag">Posicionamento & Autoridade</span>
         <h3>Fortalecimento de posicionamento e autoridade</h3>
         <p>Arquiteto com forte identidade precisava refinar a comunicação digital sem perder autenticidade.</p>
-        <div class="chips"><span class="chip">Direção Criativa</span><span class="chip">Pilares de Conteúdo</span><span class="chip">Roteirização</span></div>
-        <div class="cresult"><label>Resultado</label><span>Autoridade consolidada e consistência estratégica elevada.</span></div>
+        <div class="chips">
+          <span class="chip">Direção Criativa</span>
+          <span class="chip">Pilares de Conteúdo</span>
+          <span class="chip">Roteirização</span>
+        </div>
+        <div class="cresult">
+          <label>Resultado</label>
+          <span>Autoridade consolidada e consistência estratégica elevada.</span>
+        </div>
       </div>
-      <div class="ccard flex-1">
-        <div class="ctag">Expansão de Posicionamento</div>
+    </article>
+
+    <!-- Case 2: Estruturação Estratégica (direita) -->
+    <article class="case-card" data-case="1">
+      <div class="case-img-wrapper case-img-wide" onclick="openImageModal(this)">
+        <img src="img/planejamento-doc.jpeg" alt="Planejamento estratégico - Estruturação de marca">
+      </div>
+      <div class="case-content">
+        <span class="ctag">Expansão de Posicionamento</span>
         <h3>Estruturação estratégica e expansão de posicionamento</h3>
         <p>Escritório em fase de consolidação precisava separar marca pessoal da institucional e organizar produção de conteúdo.</p>
-        <div class="chips"><span class="chip">Posicionamento</span><span class="chip">Marca Pessoal</span><span class="chip">Marca Institucional</span></div>
-        <div class="cresult"><label>Resultado</label><span>Clareza narrativa e autoridade digital crescente.</span></div>
+        <div class="chips">
+          <span class="chip">Posicionamento</span>
+          <span class="chip">Marca Pessoal</span>
+          <span class="chip">Marca Institucional</span>
+        </div>
+        <div class="cresult">
+          <label>Resultado</label>
+          <span>Clareza narrativa e autoridade digital crescente.</span>
+        </div>
       </div>
-    </div>
+    </article>
 
-  </div><!-- /cgrid-top -->
+    <!-- Case 3: Estrutura Operacional (abaixo, full width) -->
+    <article class="case-card case-full" data-case="2">
+      <div class="case-img-wrapper">
+        <svg width="60" height="60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      </div>
+      <div class="case-content">
+        <span class="ctag">Estrutura Operacional</span>
+        <h3>Estruturação da base operacional de agência</h3>
+        <p>Crescimento trouxe complexidade: demandas centralizadas, sobreposição de funções e falhas de comunicação entre atendimento, social media e criação.</p>
+        <div class="chips">
+          <span class="chip">Asana</span>
+          <span class="chip">Atendimento</span>
+          <span class="chip">Hierarquia</span>
+          <span class="chip">Fluxo de Aprovação</span>
+        </div>
+        <div class="cresult">
+          <label>Impacto</label>
+          <span>Maior previsibilidade, redução de ruídos internos e clareza de papéis.</span>
+        </div>
+      </div>
+    </article>
 
-  <!-- Bottom: full width -->
-  <div class="cfull sr mt-1">
-    <div class="ccard-img img-wide">
-      <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-      <span>Fotos dos eventos e integração de marcas</span>
-    </div>
-    <div class="ctag">Marketing de Experiência</div>
-    <h3>Marketing de experiência e integração de marcas</h3>
-    <p class="w-640" style="margin-bottom: 10px;">Espaço que reúne diversas marcas e realiza eventos estratégicos ao longo do ano. O desafio era organizar comunicação institucional, alinhar narrativa entre lojistas e estruturar cobertura estratégica.</p>
-    <div class="chips">
-      <span class="chip">Comunicação Institucional</span><span class="chip">Cobertura de Eventos</span>
-      <span class="chip">Storytelling Pós-evento</span><span class="chip">Narrativa Digital</span><span class="chip">Multi-marcas</span>
-    </div>
-    <div class="cresult w-520"><label>Resultado</label><span>Comunicação mais estratégica, cobertura com intencionalidade e fortalecimento da imagem institucional.</span></div>
   </div>
+  <!-- /cases-gallery -->
 
 </section>
 
@@ -269,6 +278,52 @@
   <span>© 2026 · Estrategista de Marketing</span>
   <span>Feito com estratégia ✦</span>
 </footer>
+
+<!-- Modal de Imagem - Mobile -->
+<div id="image-modal" class="image-modal" onclick="closeImageModal(event)">
+  <button class="modal-close" onclick="closeImageModal(event)">&times;</button>
+  <div class="modal-content">
+    <img id="modal-img" src="" alt="">
+  </div>
+</div>
+
+<script>
+// Funções do Modal de Imagem
+function openImageModal(wrapper) {
+  const img = wrapper.querySelector('img');
+  if (!img) return;
+  
+  const modal = document.getElementById('image-modal');
+  const modalImg = document.getElementById('modal-img');
+  
+  modalImg.src = img.src;
+  modalImg.alt = img.alt;
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal(event) {
+  // Se for o próprio modal ou o botão de fechar
+  if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) {
+    return;
+  }
+  
+  const modal = document.getElementById('image-modal');
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Fechar com ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('image-modal');
+    if (modal.classList.contains('active')) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+});
+</script>
 
 <script src="js/main.js"></script>
 </body>
