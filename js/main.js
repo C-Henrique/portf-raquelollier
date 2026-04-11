@@ -9,8 +9,8 @@
    7. Atuação stagger
 ══════════════════════════════════════════════════════════ */
 
-document.addEventListener('DOMContentLoaded', function() {
-  
+document.addEventListener('DOMContentLoaded', function () {
+
   console.log('main.js carregando...');
   console.log('gsap existe:', typeof gsap);
   console.log('ScrollTrigger existe:', typeof ScrollTrigger);
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* ─── 1. CURSOR — apenas em dispositivos com mouse ─── */
   const isTouchDevice = window.matchMedia('(hover: none)').matches;
-  const cur  = document.getElementById('cur');
+  const cur = document.getElementById('cur');
   const ring = document.getElementById('ring');
 
   if (!isTouchDevice) {
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
       el.addEventListener('mouseleave', () => gsap.to(ring, { width: 34, height: 34, opacity: .45, duration: .3 }));
     });
   } else {
-    if (cur)  cur.style.display  = 'none';
+    if (cur) cur.style.display = 'none';
     if (ring) ring.style.display = 'none';
   }
 
@@ -70,40 +70,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* ─── 4. HERO SEQUENCE ─── */
   gsap.timeline({ delay: .25 })
-    .to('#w1',      { y: '0%',  opacity: 1, duration: 1.05, ease: 'expo.out' })
-    .to('#w2',      { y: '0%',  opacity: 1, duration: 1.05, ease: 'expo.out' },   '-=.65')
-    .to('#htag',    { opacity: 1, y: 0,     duration: .85,  ease: 'power3.out' }, '-=.3')
-    .to('#hbdg',    { opacity: 1, y: 0,     duration: .75,  ease: 'power3.out' }, '-=.6')
-    .to('#hscroll', { opacity: 1,           duration: .55 },                      '-=.35')
-    .to('#navLogo', { opacity: 1,           duration: .45 },                      '-=.3');
+    .to('#w1', { y: '0%', opacity: 1, duration: 1.05, ease: 'expo.out' })
+    .to('#w2', { y: '0%', opacity: 1, duration: 1.05, ease: 'expo.out' }, '-=.65')
+    .to('#htag', { opacity: 1, y: 0, duration: .85, ease: 'power3.out' }, '-=.3')
+    .to('#hbdg', { opacity: 1, y: 0, duration: .75, ease: 'power3.out' }, '-=.6')
+    .to('#hscroll', { opacity: 1, duration: .55 }, '-=.35')
+    .to('#navLogo', { opacity: 1, duration: .45 }, '-=.3');
 
   /* ─── 5. SCROLL REVEALS ─── */
   gsap.utils.toArray('.sr').forEach(el =>
     gsap.fromTo(el,
       { opacity: 0, y: 48 },
-      { opacity: 1, y: 0, duration: .9, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' } }
+      {
+        opacity: 1, y: 0, duration: .9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+      }
     )
   );
   gsap.utils.toArray('.sr-l').forEach(el =>
     gsap.fromTo(el,
       { opacity: 0, x: -46 },
-      { opacity: 1, x: 0, duration: .95, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' } }
+      {
+        opacity: 1, x: 0, duration: .95, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+      }
     )
   );
   gsap.utils.toArray('.sr-r').forEach(el =>
     gsap.fromTo(el,
       { opacity: 0, x: 46 },
-      { opacity: 1, x: 0, duration: .95, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' } }
+      {
+        opacity: 1, x: 0, duration: .95, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+      }
     )
   );
   gsap.utils.toArray('.sr-s').forEach(el =>
     gsap.fromTo(el,
       { opacity: 0, scale: .92 },
-      { opacity: 1, scale: 1, duration: .95, ease: 'back.out(1.3)',
-        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' } }
+      {
+        opacity: 1, scale: 1, duration: .95, ease: 'back.out(1.3)',
+        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+      }
     )
   );
 
@@ -118,84 +126,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  /* ─── 7. LIGHTBOX — Cases de Sucesso (Desktop) ─── */
-  // isTouchDevice já foi declarado na linha 27
-  
-  if (!isTouchDevice) {
-    // Desktop: Lightbox ao clicar na imagem
-    const caseImgWrappers = document.querySelectorAll('.case-img-wrapper');
-    const lightbox = document.createElement('div');
-    lightbox.className = 'case-lightbox';
-    document.body.appendChild(lightbox);
+  // Funções do Modal de Imagem
+  window.openImageModal = function(wrapper) {
+    const img = wrapper.querySelector('img');
+    if (!img) return;
 
-    const casesData = [
-      { image: 'img/grid-insta.jpeg', alt: 'Grid Instagram - Fortalecimento de posicionamento', tag: 'Posicionamento & Autoridade' },
-      { image: 'img/planejamento-doc.jpeg', alt: 'Planejamento estratégico - Estruturação de marca', tag: 'Expansão de Posicionamento' },
-      { image: null, alt: 'Estrutura Operacional', tag: 'Estrutura Operacional' }
-    ];
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
 
-    let currentCaseIndex = 0;
-
-    function createLightboxContent(index) {
-      const caseData = casesData[index];
-      const imageHTML = caseData.image 
-        ? `<img src="${caseData.image}" alt="${caseData.alt}">`
-        : `<svg width="80" height="80" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`;
-
-      return `
-        <button class="lightbox-close" aria-label="Fechar">&times;</button>
-        <button class="lightbox-nav lightbox-prev" aria-label="Anterior">&#8249;</button>
-        <button class="lightbox-nav lightbox-next" aria-label="Próximo">&#8250;</button>
-        <div class="lightbox-content" data-current="${index}">
-          <div class="lightbox-img">${imageHTML}</div>
-        </div>
-        <div class="lightbox-counter">${index + 1} / ${casesData.length}</div>
-      `;
-    }
-
-    function openLightbox(index) {
-      currentCaseIndex = index;
-      lightbox.innerHTML = createLightboxContent(index);
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      
-      lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
-      lightbox.querySelector('.lightbox-prev').addEventListener('click', () => navigateLightbox(-1));
-      lightbox.querySelector('.lightbox-next').addEventListener('click', () => navigateLightbox(1));
-      
-      lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) closeLightbox();
-      });
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function navigateLightbox(direction) {
-      currentCaseIndex = (currentCaseIndex + direction + casesData.length) % casesData.length;
-      lightbox.innerHTML = createLightboxContent(currentCaseIndex);
-      
-      lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
-      lightbox.querySelector('.lightbox-prev').addEventListener('click', () => navigateLightbox(-1));
-      lightbox.querySelector('.lightbox-next').addEventListener('click', () => navigateLightbox(1));
-      lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) closeLightbox();
-      });
-    }
-
-    caseImgWrappers.forEach((wrapper, index) => {
-      wrapper.addEventListener('click', () => openLightbox(index));
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('active')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') navigateLightbox(-1);
-      if (e.key === 'ArrowRight') navigateLightbox(1);
-    });
+    modalImg.src = img.src;
+    modalImg.alt = img.alt;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
-  
-  console.log('main.js executado com sucesso');
+
+  window.closeImageModal = function(event) {
+    // Se for o próprio modal ou o botão de fechar
+    if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) {
+      return;
+    }
+
+    const modal = document.getElementById('image-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Fechar com ESC
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('image-modal');
+      if (modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+  });
 });

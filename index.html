@@ -286,45 +286,6 @@
     <img id="modal-img" src="" alt="">
   </div>
 </div>
-
-<script>
-// Funções do Modal de Imagem
-function openImageModal(wrapper) {
-  const img = wrapper.querySelector('img');
-  if (!img) return;
-  
-  const modal = document.getElementById('image-modal');
-  const modalImg = document.getElementById('modal-img');
-  
-  modalImg.src = img.src;
-  modalImg.alt = img.alt;
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeImageModal(event) {
-  // Se for o próprio modal ou o botão de fechar
-  if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) {
-    return;
-  }
-  
-  const modal = document.getElementById('image-modal');
-  modal.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-// Fechar com ESC
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    const modal = document.getElementById('image-modal');
-    if (modal.classList.contains('active')) {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  }
-});
-</script>
-
 <script src="js/main.js"></script>
 </body>
 </html>
