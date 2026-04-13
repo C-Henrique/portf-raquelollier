@@ -11,17 +11,17 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  console.log('main.js carregando...');
-  console.log('gsap existe:', typeof gsap);
-  console.log('ScrollTrigger existe:', typeof ScrollTrigger);
+  // console.log('main.js carregando...');
+  // console.log('gsap existe:', typeof gsap);
+  // console.log('ScrollTrigger existe:', typeof ScrollTrigger);
 
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    console.error('GSAP ou ScrollTrigger não carregou!');
+    // console.error('GSAP ou ScrollTrigger não carregou!');
     return;
   }
 
   gsap.registerPlugin(ScrollTrigger);
-  console.log('GSAP registrado com sucesso');
+  // console.log('GSAP registrado com sucesso');
 
   /* ─── 1. CURSOR — apenas em dispositivos com mouse ─── */
   const isTouchDevice = window.matchMedia('(hover: none)').matches;
@@ -231,6 +231,38 @@ document.addEventListener('DOMContentLoaded', function () {
       field.addEventListener('input', () => field.classList.remove('error'));
     });
   }
+
+  /* ─── 10. FILTRO DE CASES POR ATUAÇÃO ─── */
+  const atuacaoCards = document.querySelectorAll('.aitem');
+  const caseCards = document.querySelectorAll('.case-card');
+
+  function showCategory(category) {
+    caseCards.forEach(c => {
+      if (c.dataset.category === category) {
+        c.style.display = 'flex';
+        gsap.fromTo(c, 
+          { opacity: 0, y: 30 }, 
+          { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out' }
+        );
+      } else {
+        c.style.display = 'none';
+      }
+    });
+  }
+
+  showCategory('0');
+
+  atuacaoCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const filter = card.dataset.filter;
+
+      atuacaoCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+
+      showCategory(filter);
+      document.getElementById('cases').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
 
     // Funções do Modal de Imagem
   window.openImageModal = function(wrapper) {

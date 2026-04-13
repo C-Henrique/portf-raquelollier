@@ -13,8 +13,8 @@
   <!-- <link rel="canonical" href="https://raquelollier.com.br/"> -->
 
   <!-- Preload de fontes críticas -->
-  <link rel="preload" href="fonts/Dream-Avenue.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="fonts/Montserrat-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="fonts/Dream-Avenue.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="fonts/Montserrat-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
   <!-- Favicon -->
   <!-- <link rel="icon" type="image/png" href="img/favicon.png"> -->
@@ -64,9 +64,13 @@
         <a href="#atuacao" onclick="closeMenu()">Atuação</a>
         <a href="#cases" onclick="closeMenu()">Cases</a>
         <a href="#contato" onclick="closeMenu()">Contato</a>
+        <button class="tbtn" id="tbtn" aria-label="Alternar tema"></button>
       </div>
-      <button class="tbtn" id="tbtn" aria-label="Alternar tema"></button>
-      <button class="hbtn" id="hbtn" aria-label="Abrir menu" aria-expanded="false"></button>
+      <button class="hbtn" id="hbtn" aria-label="Abrir menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
   <!-- Overlay do menu mobile -->
@@ -77,7 +81,7 @@
 
     <!-- Fundo (banner) -->
     <div class="hero-bg">
-      <img src="img/banner.png" alt="Raquel Ollier - Estrategista de Marketing - Estratégia, Liderança e Conteúdo" />
+      <img src="img/banner.webp" alt="Raquel Ollier - Estrategista de Marketing - Estratégia, Liderança e Conteúdo" />
     </div>
     <div class="hero-ov"></div>
 
@@ -111,7 +115,7 @@
     <div class="sr-l">
       <div class="sobre-photo">
         <div class="sobre-photo-ph">
-          <img src="img/255A9657.jpg" alt="Raquel Ollier" loading="lazy" width="600" height="800" />
+          <img src="img/255A9657.webp" alt="Raquel Ollier" loading="lazy" width="600" height="800" />
         </div>
       </div>
     </div>
@@ -143,28 +147,31 @@
         direcionamento estratégico até a execução e gestão de conteúdo no dia a dia.</p>
     </div>
     <div class="agrid sr-s">
-      <div class="aitem">
-        <div class="anum">✦</div>
+      <button class="aitem active" data-filter="0">
+        <span class="anum">✦</span>
         <h3>Conteúdo & Social Media</h3>
         <p>Atuação focada na gestão e execução de conteúdo para presença digital. Envolve planejamento de feed, produção
           de materiais, captação em de conteúdos, além de acompanhamento da rotina para garantir consistência,
           frequência e alinhamento com o posicionamento da marca.</p>
-      </div>
-      <div class="aitem">
-        <div class="anum">✦</div>
+        <span class="aitem-cta">Veja mais <span class="aitem-arrow">→</span></span>
+      </button>
+      <button class="aitem" data-filter="1">
+        <span class="anum">✦</span>
         <h3>Estratégia & Estruturação</h3>
         <p>Atuação voltada à organização e direcionamento da comunicação. Inclui definição de posicionamento,
           estruturação de processos, organização de demandas, construção de narrativa e apoio na tomada de decisões
           estratégicas.
         </p>
-      </div>
-      <div class="aitem">
-        <div class="anum">✦</div>
+        <span class="aitem-cta">Veja mais <span class="aitem-arrow">→</span></span>
+      </button>
+      <button class="aitem" data-filter="2">
+        <span class="anum">✦</span>
         <h3>Experiências & Projetos</h3>
         <p>Atuação em projetos pontuais, ativações e experiências de marca. Envolve planejamento de cobertura, produção
           de conteúdo em tempo real, registro de momentos e construção de narrativa a partir de eventos, viagens e ações
           especiais.</p>
-      </div>
+        <span class="aitem-cta">Veja mais <span class="aitem-arrow">→</span></span>
+      </button>
     </div>
   </section>
 
@@ -178,13 +185,11 @@
       <p class="cases-desc sr">Projetos que transformaram marcas e fortaleceram posicionamentos.</p>
     </div>
 
-    <!-- Galeria de Cases: 2 colunas cima + 1 full width embaixo -->
     <div class="cases-gallery sr-s">
 
-      <!-- Case 1: Fortalecimento de Posicionamento (esquerda) -->
-      <article class="case-card" data-case="0">
+      <article class="case-card" data-case="0" data-category="0">
         <div class="case-img-wrapper case-img-tall" onclick="openImageModal(this)">
-          <img src="img/grid-insta.jpeg" alt="Grid Instagram do arquiteto - Fortalecimento de posicionamento"
+          <img src="img/grid-insta.webp" alt="Grid Instagram do arquiteto - Fortalecimento de posicionamento"
             loading="lazy" width="600" height="800">
         </div>
         <div class="case-content">
@@ -203,8 +208,31 @@
         </div>
       </article>
 
+       <article class="case-card" data-case="0" data-category="0">
+        <div class="case-img-wrapper case-img-wide" onclick="openImageModal(this)">
+          <img src="img/planejamento-doc.webp" alt="Planejamento estratégico - Estruturação de marca" loading="lazy"
+            width="800" height="450">
+        </div>
+        <div class="case-content">
+          <span class="ctag">Expansão de Posicionamento</span>
+          <h3>Estruturação estratégica e expansão de posicionamento</h3>
+          <p>Escritório em fase de consolidação precisava separar marca pessoal da institucional e organizar produção de
+            conteúdo.</p>
+          <div class="chips">
+            <span class="chip">Posicionamento</span>
+            <span class="chip">Marca Pessoal</span>
+            <span class="chip">Marca Institucional</span>
+          </div>
+          <div class="cresult">
+            <label>Resultado</label>
+            <span>Clareza narrativa e autoridade digital crescente.</span>
+          </div>
+        </div>
+      </article>
+
+
       <!-- Case 2: Estruturação Estratégica (direita) -->
-      <article class="case-card" data-case="1">
+      <article class="case-card" data-case="1" data-category="1" style="display:none">
         <div class="case-img-wrapper case-img-wide" onclick="openImageModal(this)">
           <img src="img/planejamento-doc.jpeg" alt="Planejamento estratégico - Estruturação de marca" loading="lazy"
             width="800" height="450">
@@ -227,7 +255,7 @@
       </article>
 
       <!-- Case 3: Estrutura Operacional (abaixo, full width) -->
-      <article class="case-card case-full" data-case="2">
+      <article class="case-card case-full" data-case="2" data-category="2" style="display:none">
         <div class="case-img-wrapper">
           <svg width="60" height="60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
             <path stroke-linecap="round" stroke-linejoin="round"
