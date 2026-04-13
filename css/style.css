@@ -138,6 +138,45 @@ nav.s .tbtn::after { background:var(--accent); }
   transition:transform .4s cubic-bezier(.34,1.56,.64,1);
 }
 [data-theme="dark"] .tbtn::after { transform:translateX(16px); }
+/* ─── HAMBURGER (mobile only) ─── */
+.hbtn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  background: transparent; border: none;
+  cursor: pointer; padding: 4px;
+  flex-shrink: 0;
+  z-index: 600;
+}
+.hbtn span {
+  display: block;
+  width: 100%; height: 1.5px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform .35s cubic-bezier(.77,0,.175,1), opacity .25s, background .3s;
+  transform-origin: center;
+}
+nav.s .hbtn span { background: var(--text); }
+
+/* Estado aberto */
+.hbtn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hbtn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hbtn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Overlay escuro atrás do menu */
+.nav-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 490;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.nav-overlay.open { display: block; opacity: 1; }
+
+
 
 /* ─── 6. HERO ─── */
 .hero {
@@ -171,7 +210,7 @@ nav.s .tbtn::after { background:var(--accent); }
 .hero-name {
   position:absolute; top:40%; left:0; right:0;
   display:flex; justify-content:space-between;
-  padding:0 4rem; z-index:2; pointer-events:none;
+  padding:0 7rem; z-index:2; pointer-events:none;
 }
 .hn-left  { text-align:left; }
 .hn-right { text-align:right; }
@@ -179,13 +218,14 @@ nav.s .tbtn::after { background:var(--accent); }
 .hn-word  {
   display:inline-block;
   font-family:'Dream Avenue',serif;
-  font-size:clamp(3.5rem,12vw,10rem);
-  font-weight:700; letter-spacing:-.02em;
+  font-size:clamp(3.5rem,12vw,7.51rem);
+  letter-spacing:-.02em;
   color:#fff;
   transform:translateY(110%); opacity:0;
   will-change:transform,opacity;
+  text-transform: uppercase;
 }
-.hn-word.italic { font-style:italic; color:var(--accent); }
+.hn-word.italic { color:var(--accent); }
 
 /* Rodapé hero */
 .hero-bot {
@@ -278,8 +318,8 @@ nav.s .tbtn::after { background:var(--accent); }
 
 /* ─── 9. ATUAÇÃO ─── */
 .atuacao    { padding:8rem 4rem; background:var(--bg2); }
-.atuacao-hd { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:3.5rem; gap:2rem; }
-.atuacao-desc { font-size:.88rem; font-weight:300; line-height:1.75; color:var(--text-soft); max-width:320px; }
+.atuacao-hd { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:3.5rem; gap:2rem; }
+.atuacao-desc { font-size:.88rem; font-weight:300; line-height:1.75; color:var(--text-soft); max-width:35rem; }
 .agrid {
   display:grid; grid-template-columns:repeat(3,1fr);
   border:1px solid var(--border); border-radius:2px;
@@ -702,13 +742,118 @@ footer span { font-size:.7rem; color:var(--text-soft); letter-spacing:.05em; }
 .sr-r { opacity:0; transform:translateX(44px);  will-change:transform,opacity; }
 .sr-s { opacity:0; transform:scale(.93);        will-change:transform,opacity; }
 
+
+/* ─── FORMULÁRIO DE CONTATO ─── */
+.contato-form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.cf-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.cf-field {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+.cf-field label {
+  font-size: .65rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.cf-field input,
+.cf-field textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: .75rem 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .88rem;
+  font-weight: 300;
+  color: var(--text);
+  transition: border-color .25s, box-shadow .25s;
+  outline: none;
+  resize: vertical;
+}
+.cf-field input::placeholder,
+.cf-field textarea::placeholder { color: var(--text-soft); opacity: .6; }
+.cf-field input:focus,
+.cf-field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.cf-field input.error,
+.cf-field textarea.error { border-color: #e55; }
+
+.cf-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  align-self: flex-start;
+  padding: .85rem 2rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .3s, transform .2s, opacity .3s;
+}
+.cf-submit:hover    { background: var(--accent-lt); transform: translateX(3px); }
+.cf-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.cf-submit-arrow    { transition: transform .25s; }
+.cf-submit:hover .cf-submit-arrow { transform: translateX(4px); }
+
+.cf-feedback {
+  font-size: .82rem;
+  font-weight: 400;
+  min-height: 1.2em;
+  transition: color .3s;
+}
+.cf-feedback.ok  { color: #2a9d6a; }
+.cf-feedback.err { color: #e55; }
+
 /* ═══════════════════════════════════════════════════════════
    15. RESPONSIVE ≤960px — Tablet
 ═══════════════════════════════════════════════════════════ */
 @media (max-width:960px) {
   nav, nav.s   { padding:1rem 1.5rem; }
-  .nav-links   { display:none; }
   .dv          { margin:0 1.5rem; }
+
+  /* Hamburger visível */
+  .hbtn { display:flex; }
+
+  /* Nav links: drawer lateral no mobile */
+  .nav-links {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    top: 0; right: 0;
+    width: min(280px, 80vw);
+    height: 100vh;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid var(--border);
+    padding: 6rem 2rem 2rem;
+    gap: 2rem;
+    z-index: 500;
+    transform: translateX(100%);
+    transition: transform .38s cubic-bezier(.77,0,.175,1);
+  }
+  .nav-links.open  { transform: translateX(0); }
+  .nav-links a     { font-size: .85rem; letter-spacing: .14em; color: var(--text); }
+  .nav-links a:hover { color: var(--accent); }
   .sobre,
   .atuacao,
   .cases,
@@ -733,6 +878,10 @@ footer span { font-size:.7rem; color:var(--text-soft); letter-spacing:.05em; }
   /* Previne overflow horizontal */
   body { overflow-x:hidden; }
   .hero, .sobre, .atuacao, .cases, .contato, footer, nav { max-width:100%; }
+
+  /* Formulário */
+  .cf-row             { grid-template-columns:1fr; }
+  .cf-submit          { width:100%; justify-content:center; }
 
   /* Cases */
   .cases              { padding:4rem 1.25rem; }

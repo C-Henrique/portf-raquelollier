@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Raquel Ollier | Estrategista de Marketing - Estratégia, Liderança e Criatividade</title>
-  
+
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Estrategista de marketing com +8 anos de experiência. Especialidades: estratégia de marca, liderança de equipes, direção criativa e gestão de processos.">
+  <meta name="description"
+    content="Estrategista de marketing com +8 anos de experiência. Especialidades: estratégia de marca, liderança de equipes, direção criativa e gestão de processos.">
   <meta name="robots" content="index, follow">
   <!-- <link rel="canonical" href="https://raquelollier.com.br/"> -->
 
@@ -20,7 +22,8 @@
   <!-- Open Graph / Facebook / WhatsApp -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Raquel Ollier - Estrategista de Marketing">
-  <meta property="og:description" content="Estrategista de marketing com +8 anos de experiência em estratégia de marca, liderança e direção criativa.">
+  <meta property="og:description"
+    content="Estrategista de marketing com +8 anos de experiência em estratégia de marca, liderança e direção criativa.">
   <!-- <meta property="og:url" content="https://raquelollier.com.br/"> -->
   <!-- <meta property="og:image" content="https://raquelollier.com.br/img/banner.png"> -->
 
@@ -46,246 +49,280 @@
   <script src="js/gsap.min.js"></script>
   <script src="js/ScrollTrigger.min.js"></script>
 </head>
+
 <body>
 
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="ring"></div>
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-ring" id="ring"></div>
 
-<!-- NAV -->
-<nav id="nav">
-  <div class="nav-logo" id="navLogo">Raquel Ollier</div>
-  <div class="nav-r">
-    <div class="nav-links">
-      <a href="#sobre">Sobre</a>
-      <a href="#atuacao">Atuação</a>
-      <a href="#cases">Cases</a>
-      <a href="#contato">Contato</a>
-    </div>
-    <button class="tbtn" id="tbtn" aria-label="Alternar tema"></button>
-  </div>
-</nav>
-
-<!-- ══════════════════════ HERO ══════════════════════ -->
-<section class="hero" id="hero">
-
-  <!-- Fundo (banner) -->
-  <div class="hero-bg">
-    <img src="img/banner.png" alt="Raquel Ollier - Estrategista de Marketing - Estratégia, Liderança e Conteúdo" />
-  </div>
-  <div class="hero-ov"></div>
-
-  <!-- Nome — animação sequencial -->
-  <div class="hero-name">
-    <span class="hn-row hn-left"><span class="hn-word" id="w1">Raquel</span></span>
-    <span class="hn-row hn-right"><span class="hn-word italic" id="w2">Ollier</span></span>
-  </div>
-
-  <!-- Rodapé do hero -->
-  <div class="hero-bot">
-    <p class="hero-tagline" id="htag">
-      Estrategista de marketing com trajetória construída dentro da operação.<br/>
-      Do conteúdo à liderança — <strong>conectando tudo.</strong>
-    </p>
-    <div class="hero-scroll" id="hscroll">
-      <div class="sbar"></div>
-      <span>scroll</span>
-    </div>
-    <div class="hero-badges" id="hbdg">
-      <div class="badge">+8 anos de experiência</div>
-      <div class="badge">Estratégia · Liderança · Conteúdo</div>
-    </div>
-  </div>
-
-</section>
-
-<div class="dv"></div>
-
-<!-- ══════════════════════ SOBRE ══════════════════════ -->
-<section class="sobre" id="sobre">
-  <div class="sr-l">
-    <div class="sobre-photo">
-      <div class="sobre-photo-ph">
-        <img src="img/255A9657.jpg" alt="Raquel Ollier" />
-        <!-- <svg width="44" height="44" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-            d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
-        <span>foto · seção sobre</span> -->
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-logo" id="navLogo">Raquel Ollier</div>
+    <div class="nav-r">
+      <div class="nav-links" id="navLinks">
+        <a href="#sobre" onclick="closeMenu()">Sobre</a>
+        <a href="#atuacao" onclick="closeMenu()">Atuação</a>
+        <a href="#cases" onclick="closeMenu()">Cases</a>
+        <a href="#contato" onclick="closeMenu()">Contato</a>
       </div>
-      <div class="photo-foot">
-        <label>Estrategista</label>
-        <strong>Raquel.</strong>
+      <button class="tbtn" id="tbtn" aria-label="Alternar tema"></button>
+      <button class="hbtn" id="hbtn" aria-label="Abrir menu" aria-expanded="false"></button>
+    </div>
+  </nav>
+  <!-- Overlay do menu mobile -->
+  <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
+
+  <!-- ══════════════════════ HERO ══════════════════════ -->
+  <section class="hero" id="hero">
+
+    <!-- Fundo (banner) -->
+    <div class="hero-bg">
+      <img src="img/banner.png" alt="Raquel Ollier - Estrategista de Marketing - Estratégia, Liderança e Conteúdo" />
+    </div>
+    <div class="hero-ov"></div>
+
+    <!-- Nome — animação sequencial -->
+    <div class="hero-name">
+      <span class="hn-row hn-left"><span class="hn-word" id="w1">Raquel</span></span>
+      <span class="hn-row hn-right"><span class="hn-word italic" id="w2">Ollier</span></span>
+    </div>
+
+    <!-- Rodapé do hero -->
+    <div class="hero-bot">
+      <p class="hero-tagline" id="htag">
+        Estratégia, conteúdo e direção de presença digital.<br />
+      </p>
+      <div class="hero-scroll" id="hscroll">
+        <div class="sbar"></div>
+        <span>scroll</span>
+      </div>
+      <div class="hero-badges" id="hbdg">
+        <div class="badge">+6 anos de experiência</div>
+        <div class="badge">Estratégia · Conteúdo · Execução</div>
       </div>
     </div>
-  </div>
 
-  <div>
-    <p class="eyebrow sr">Quem sou</p>
-    <h2 class="stitle sr">Cresci fazendo.<br/>Hoje eu <em>dirijo.</em></h2>
-    <div class="sbody">
-      <p class="sr">Trabalho com marketing e conteúdo digital desde os 17 anos. Cresci entendendo cada etapa do processo criativo e hoje atuo estruturando direção, prioridades e crescimento de marcas e equipes.</p>
-      <blockquote class="squote sr">"Meu diferencial não é só fazer, é conectar tudo."</blockquote>
-      <p class="sr">Transformo demandas em planos claros, organizo prioridades, direciono times e apoio decisões estratégicas junto a clientes e liderança.</p>
+  </section>
+
+  <div class="dv"></div>
+
+  <!-- ══════════════════════ SOBRE ══════════════════════ -->
+  <section class="sobre" id="sobre">
+    <div class="sr-l">
+      <div class="sobre-photo">
+        <div class="sobre-photo-ph">
+          <img src="img/255A9657.jpg" alt="Raquel Ollier" loading="lazy" width="600" height="800" />
+        </div>
+      </div>
     </div>
-    <div class="stats sr">
-      <div><div class="stat-n">17</div><div class="stat-l">Idade ao começar</div></div>
-      <div><div class="stat-n">+8</div><div class="stat-l">Anos de experiência</div></div>
-      <div><div class="stat-n">∞</div><div class="stat-l">Conexões construídas</div></div>
-    </div>
-  </div>
-</section>
 
-<div class="dv"></div>
-
-<!-- ══════════════════════ ATUAÇÃO ══════════════════════ -->
-<section class="atuacao" id="atuacao">
-  <div class="atuacao-hd">
     <div>
-      <p class="eyebrow sr">Como atuo</p>
-      <h2 class="stitle sr mb-0">Minha <em>atuação</em></h2>
+      <p class="eyebrow sr">✦</p>
+      <h2 class="stitle sr">Quem é<br />Raquel <em>Ollier.</em></h2>
+      <div class="sbody">
+        <p class="sr">Trabalho com marketing e conteúdo digital desde o início da minha trajetória profissional. Minha
+          experiência foi construída dentro da operação, passando por captação, produção, planejamento e gestão, o que
+          me permite atuar hoje com visão mais ampla sobre processos, times e comunicação.</p>
+        <blockquote class="squote sr">"Meu diferencial não é só fazer, é conectar tudo."</blockquote>
+        <p class="sr">Atuo organizando demandas, direcionando execução e estruturando presença digital de marcas e
+          profissionais.</p>
+      </div>
     </div>
-    <p class="atuacao-desc sr">Organizo marcas, equipes e processos — transformando demandas em planos claros com resultados reais.</p>
-  </div>
-  <div class="agrid sr-s">
-    <div class="aitem"><div class="anum">01</div><h3>Estratégia de Posicionamento</h3><p>Direcionamento estratégico de conteúdo alinhado ao posicionamento e crescimento de marca.</p></div>
-    <div class="aitem"><div class="anum">02</div><h3>Liderança de Equipe</h3><p>Estruturação de equipe multidisciplinar com definição de hierarquia e fluxos decisórios.</p></div>
-    <div class="aitem"><div class="anum">03</div><h3>Direção Criativa</h3><p>Roteirização, direção e estruturação de narrativa de marca com propósito e autenticidade.</p></div>
-    <div class="aitem"><div class="anum">04</div><h3>Gestão de Processos</h3><p>Organização de cronogramas, captações e fluxos de comunicação com clareza operacional.</p></div>
-    <div class="aitem"><div class="anum">05</div><h3>Decisões Estratégicas</h3><p>Condução e participação ativa em decisões junto a clientes e liderança.</p></div>
-    <div class="aitem"><div class="anum">06</div><h3>Campanhas e Ações</h3><p>Planejamento integrado de campanhas com visão de conteúdo, marca e resultados.</p></div>
-  </div>
-</section>
+  </section>
 
-<div class="dv"></div>
+  <div class="dv"></div>
 
-<!-- ══════════════════════ CASES ══════════════════════ -->
-<section class="cases" id="cases">
-  <div class="cases-hd">
-    <p class="eyebrow sr">Resultados reais</p>
-    <h2 class="stitle sr mb-0">Cases de <em>sucesso</em></h2>
-    <p class="cases-desc sr">Projetos que transformaram marcas e fortaleceram posicionamentos.</p>
-  </div>
-
-  <!-- Galeria de Cases: 2 colunas cima + 1 full width embaixo -->
-  <div class="cases-gallery sr-s">
-    
-    <!-- Case 1: Fortalecimento de Posicionamento (esquerda) -->
-    <article class="case-card" data-case="0">
-      <div class="case-img-wrapper case-img-tall" onclick="openImageModal(this)">
-        <img src="img/grid-insta.jpeg" alt="Grid Instagram do arquiteto - Fortalecimento de posicionamento" width="70%">
+  <!-- ══════════════════════ ATUAÇÃO ══════════════════════ -->
+  <section class="atuacao" id="atuacao">
+    <div class="atuacao-hd">
+      <div>
+        <p class="eyebrow sr">✦</p>
+        <h2 class="stitle sr mb-0">Minha <em>atuação</em></h2>
       </div>
-      <div class="case-content">
-        <span class="ctag">Posicionamento & Autoridade</span>
-        <h3>Fortalecimento de posicionamento e autoridade</h3>
-        <p>Arquiteto com forte identidade precisava refinar a comunicação digital sem perder autenticidade.</p>
-        <div class="chips">
-          <span class="chip">Direção Criativa</span>
-          <span class="chip">Pilares de Conteúdo</span>
-          <span class="chip">Roteirização</span>
-        </div>
-        <div class="cresult">
-          <label>Resultado</label>
-          <span>Autoridade consolidada e consistência estratégica elevada.</span>
-        </div>
+      <p class="atuacao-desc sr">Me adapto ao momento e à necessidade de cada projeto, podendo ir desde a organização e
+        direcionamento estratégico até a execução e gestão de conteúdo no dia a dia.</p>
+    </div>
+    <div class="agrid sr-s">
+      <div class="aitem">
+        <div class="anum">✦</div>
+        <h3>Conteúdo & Social Media</h3>
+        <p>Atuação focada na gestão e execução de conteúdo para presença digital. Envolve planejamento de feed, produção
+          de materiais, captação em de conteúdos, além de acompanhamento da rotina para garantir consistência,
+          frequência e alinhamento com o posicionamento da marca.</p>
       </div>
-    </article>
+      <div class="aitem">
+        <div class="anum">✦</div>
+        <h3>Estratégia & Estruturação</h3>
+        <p>Atuação voltada à organização e direcionamento da comunicação. Inclui definição de posicionamento,
+          estruturação de processos, organização de demandas, construção de narrativa e apoio na tomada de decisões
+          estratégicas.
+        </p>
+      </div>
+      <div class="aitem">
+        <div class="anum">✦</div>
+        <h3>Experiências & Projetos</h3>
+        <p>Atuação em projetos pontuais, ativações e experiências de marca. Envolve planejamento de cobertura, produção
+          de conteúdo em tempo real, registro de momentos e construção de narrativa a partir de eventos, viagens e ações
+          especiais.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Case 2: Estruturação Estratégica (direita) -->
-    <article class="case-card" data-case="1">
-      <div class="case-img-wrapper case-img-wide" onclick="openImageModal(this)">
-        <img src="img/planejamento-doc.jpeg" alt="Planejamento estratégico - Estruturação de marca">
-      </div>
-      <div class="case-content">
-        <span class="ctag">Expansão de Posicionamento</span>
-        <h3>Estruturação estratégica e expansão de posicionamento</h3>
-        <p>Escritório em fase de consolidação precisava separar marca pessoal da institucional e organizar produção de conteúdo.</p>
-        <div class="chips">
-          <span class="chip">Posicionamento</span>
-          <span class="chip">Marca Pessoal</span>
-          <span class="chip">Marca Institucional</span>
-        </div>
-        <div class="cresult">
-          <label>Resultado</label>
-          <span>Clareza narrativa e autoridade digital crescente.</span>
-        </div>
-      </div>
-    </article>
+  <div class="dv"></div>
 
-    <!-- Case 3: Estrutura Operacional (abaixo, full width) -->
-    <article class="case-card case-full" data-case="2">
-      <div class="case-img-wrapper">
-        <svg width="60" height="60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-      </div>
-      <div class="case-content">
-        <span class="ctag">Estrutura Operacional</span>
-        <h3>Estruturação da base operacional de agência</h3>
-        <p>Crescimento trouxe complexidade: demandas centralizadas, sobreposição de funções e falhas de comunicação entre atendimento, social media e criação.</p>
-        <div class="chips">
-          <span class="chip">Asana</span>
-          <span class="chip">Atendimento</span>
-          <span class="chip">Hierarquia</span>
-          <span class="chip">Fluxo de Aprovação</span>
-        </div>
-        <div class="cresult">
-          <label>Impacto</label>
-          <span>Maior previsibilidade, redução de ruídos internos e clareza de papéis.</span>
-        </div>
-      </div>
-    </article>
+  <!-- ══════════════════════ CASES ══════════════════════ -->
+  <section class="cases" id="cases">
+    <div class="cases-hd">
+      <p class="eyebrow sr">Resultados reais</p>
+      <h2 class="stitle sr mb-0">Cases de <em>sucesso</em></h2>
+      <p class="cases-desc sr">Projetos que transformaram marcas e fortaleceram posicionamentos.</p>
+    </div>
 
+    <!-- Galeria de Cases: 2 colunas cima + 1 full width embaixo -->
+    <div class="cases-gallery sr-s">
+
+      <!-- Case 1: Fortalecimento de Posicionamento (esquerda) -->
+      <article class="case-card" data-case="0">
+        <div class="case-img-wrapper case-img-tall" onclick="openImageModal(this)">
+          <img src="img/grid-insta.jpeg" alt="Grid Instagram do arquiteto - Fortalecimento de posicionamento"
+            loading="lazy" width="600" height="800">
+        </div>
+        <div class="case-content">
+          <span class="ctag">Posicionamento & Autoridade</span>
+          <h3>Fortalecimento de posicionamento e autoridade</h3>
+          <p>Arquiteto com forte identidade precisava refinar a comunicação digital sem perder autenticidade.</p>
+          <div class="chips">
+            <span class="chip">Direção Criativa</span>
+            <span class="chip">Pilares de Conteúdo</span>
+            <span class="chip">Roteirização</span>
+          </div>
+          <div class="cresult">
+            <label>Resultado</label>
+            <span>Autoridade consolidada e consistência estratégica elevada.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case 2: Estruturação Estratégica (direita) -->
+      <article class="case-card" data-case="1">
+        <div class="case-img-wrapper case-img-wide" onclick="openImageModal(this)">
+          <img src="img/planejamento-doc.jpeg" alt="Planejamento estratégico - Estruturação de marca" loading="lazy"
+            width="800" height="450">
+        </div>
+        <div class="case-content">
+          <span class="ctag">Expansão de Posicionamento</span>
+          <h3>Estruturação estratégica e expansão de posicionamento</h3>
+          <p>Escritório em fase de consolidação precisava separar marca pessoal da institucional e organizar produção de
+            conteúdo.</p>
+          <div class="chips">
+            <span class="chip">Posicionamento</span>
+            <span class="chip">Marca Pessoal</span>
+            <span class="chip">Marca Institucional</span>
+          </div>
+          <div class="cresult">
+            <label>Resultado</label>
+            <span>Clareza narrativa e autoridade digital crescente.</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case 3: Estrutura Operacional (abaixo, full width) -->
+      <article class="case-card case-full" data-case="2">
+        <div class="case-img-wrapper">
+          <svg width="60" height="60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <div class="case-content">
+          <span class="ctag">Estrutura Operacional</span>
+          <h3>Estruturação da base operacional de agência</h3>
+          <p>Crescimento trouxe complexidade: demandas centralizadas, sobreposição de funções e falhas de comunicação
+            entre atendimento, social media e criação.</p>
+          <div class="chips">
+            <span class="chip">Asana</span>
+            <span class="chip">Atendimento</span>
+            <span class="chip">Hierarquia</span>
+            <span class="chip">Fluxo de Aprovação</span>
+          </div>
+          <div class="cresult">
+            <label>Impacto</label>
+            <span>Maior previsibilidade, redução de ruídos internos e clareza de papéis.</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <!-- /cases-gallery -->
+
+  </section>
+
+  <div class="dv"></div>
+
+  <!-- ══════════════════════ CONTATO ══════════════════════ -->
+  <section class="contato" id="contato">
+    <div>
+      <p class="eyebrow sr">Vamos trabalhar juntos</p>
+      <h2 class="contato-t sr">Pronta para<br /><em>conectar</em><br />sua marca.</h2>
+      <p class="contato-sub sr">Estruturo marcas, equipes e processos. Se você quer crescer com estratégia, fale comigo.
+      </p>
+    </div>
+    <div class="clinks sr-r">
+      <a href="mailto:contato.raquelollier@gmail.com?subject=Contato&body=Olá,%20quero%20falar%20com%20você"
+        class="clink">
+        <div class="clink-ico"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg></div>
+        <div class="clink-b"><label>E-mail</label><span>contato.raquelollier@gmail.com</span></div>
+        <span class="clink-arr">→</span>
+      </a>
+      <a href="https://linkedin.com/in/raquelollier" target="_blank" class="clink">
+        <div class="clink-ico"><svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+            <circle cx="4" cy="4" r="2" />
+          </svg></div>
+        <div class="clink-b"><label>LinkedIn</label><span>Raquel Ollier</span></div>
+        <span class="clink-arr">→</span>
+      </a>
+      <a href="https://wa.me/5585991902963" target="_blank" rel="noopener noreferrer" class="clink">
+        <div class="clink-ico"><svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg></div>
+        <div class="clink-b"><label>WhatsApp</label><span>Fale comigo</span></div>
+        <span class="clink-arr">→</span>
+      </a>
+      <a href="https://instagram.com/raquelollier" target="_blank" class="clink">
+        <div class="clink-ico"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="1.8">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+          </svg></div>
+        <div class="clink-b"><label>Instagram</label><span>@raquelollier</span></div>
+        <span class="clink-arr">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="flogo">Raquel Ollier</div>
+    <span>© 2026 · Estrategista de Marketing</span>
+    <span>Feito com estratégia ✦</span>
+  </footer>
+
+  <!-- Modal de Imagem - Mobile -->
+  <div id="image-modal" class="image-modal" onclick="closeImageModal(event)">
+    <button class="modal-close" onclick="closeImageModal(event)">&times;</button>
+    <div class="modal-content">
+      <img id="modal-img" src="" alt="">
+    </div>
   </div>
-  <!-- /cases-gallery -->
 
-</section>
-
-<div class="dv"></div>
-
-<!-- ══════════════════════ CONTATO ══════════════════════ -->
-<section class="contato" id="contato">
-  <div>
-    <p class="eyebrow sr">Vamos trabalhar juntos</p>
-    <h2 class="contato-t sr">Pronta para<br/><em>conectar</em><br/>sua marca.</h2>
-    <p class="contato-sub sr">Estruturo marcas, equipes e processos. Se você quer crescer com estratégia, fale comigo.</p>
-  </div>
-  <div class="clinks sr-r">
-    <a href="mailto:contato.raquelollier@gmail.com?subject=Contato&body=Olá,%20quero%20falar%20com%20você"" class="clink">
-      <div class="clink-ico"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
-      <div class="clink-b"><label>E-mail</label><span><span class="__cf_email__" data-cfemail="395a56574d584d56794b58484c5c55565555505c4b175a5654">contato.raquelollier@gmail.com</span></span></div>
-      <span class="clink-arr">→</span>
-    </a>
-    <a href="https://linkedin.com/in/raquelollier" target="_blank" class="clink">
-      <div class="clink-ico"><svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></div>
-      <div class="clink-b"><label>LinkedIn</label><span>Raquel Ollier</span></div>
-      <span class="clink-arr">→</span>
-    </a>
-    <a href="https://wa.me/5585991902963" target="_blank" rel="noopener noreferrer" class="clink">
-      <div class="clink-ico"><svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
-      <div class="clink-b"><label>WhatsApp</label><span>Fale comigo</span></div>
-      <span class="clink-arr">→</span>
-    </a>
-    <a href="https://instagram.com/raquelollier" target="_blank" class="clink">
-      <div class="clink-ico"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
-      <div class="clink-b"><label>Instagram</label><span>@raquelollier</span></div>
-      <span class="clink-arr">→</span>
-    </a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="flogo">Raquel Ollier</div>
-  <span>© 2026 · Estrategista de Marketing</span>
-  <span>Feito com estratégia ✦</span>
-</footer>
-
-<!-- Modal de Imagem - Mobile -->
-<div id="image-modal" class="image-modal" onclick="closeImageModal(event)">
-  <button class="modal-close" onclick="closeImageModal(event)">&times;</button>
-  <div class="modal-content">
-    <img id="modal-img" src="" alt="">
-  </div>
-</div>
-<script src="js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
+
 </html>

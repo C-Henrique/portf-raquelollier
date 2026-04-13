@@ -126,7 +126,113 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Funções do Modal de Imagem
+  /* ─── 7. MENU HAMBÚRGUER (mobile) ─── */
+  const hbtn    = document.getElementById('hbtn');
+  const navLinks = document.getElementById('navLinks');
+  const navOverlay = document.getElementById('navOverlay');
+
+  function openMenu() {
+    hbtn.classList.add('open');
+    navLinks.classList.add('open');
+    navOverlay.classList.add('open');
+    hbtn.setAttribute('aria-expanded', 'true');
+    hbtn.setAttribute('aria-label', 'Fechar menu');
+    document.body.style.overflow = 'hidden';
+  }
+
+  window.closeMenu = function() {
+    hbtn.classList.remove('open');
+    navLinks.classList.remove('open');
+    navOverlay.classList.remove('open');
+    hbtn.setAttribute('aria-expanded', 'false');
+    hbtn.setAttribute('aria-label', 'Abrir menu');
+    document.body.style.overflow = '';
+  };
+
+  hbtn.addEventListener('click', () => {
+    hbtn.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  // Fecha menu com ESC
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && hbtn.classList.contains('open')) closeMenu();
+  });
+
+  /* ─── 8. SCROLL SUAVE NOS LINKS (compatível com iOS Safari) ─── */
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      const offset = nav.offsetHeight + 8;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  /* ─── 9. FORMULÁRIO DE CONTATO ─── */
+  const form     = document.getElementById('contactForm');
+  const feedback = document.getElementById('cfFeedback');
+
+  if (form) {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = form.querySelector('.cf-submit');
+
+      // Validação simples
+      let valid = true;
+      form.querySelectorAll('[required]').forEach(field => {
+        field.classList.remove('error');
+        if (!field.value.trim()) {
+          field.classList.add('error');
+          valid = false;
+        }
+      });
+      const emailField = form.querySelector('#cf-email');
+      if (emailField && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+        emailField.classList.add('error');
+        valid = false;
+      }
+
+      if (!valid) {
+        feedback.textContent = 'Preencha todos os campos corretamente.';
+        feedback.className = 'cf-feedback err';
+        return;
+      }
+
+      // Envia via mailto como fallback simples (sem backend)
+      const nome    = form.querySelector('#cf-nome').value.trim();
+      const email   = form.querySelector('#cf-email').value.trim();
+      const msg     = form.querySelector('#cf-msg').value.trim();
+      const subject = encodeURIComponent('Contato via portfólio — ' + nome);
+      const body    = encodeURIComponent(
+        'Nome: ' + nome + '\nE-mail: ' + email + '\n\n' + msg
+      );
+
+      btn.disabled = true;
+      btn.querySelector('.cf-submit-label').textContent = 'Enviando...';
+
+      // Tenta abrir client de e-mail
+      window.location.href = 'mailto:contato@raquelollier.com?subject=' + subject + '&body=' + body;
+
+      // Feedback visual após 800ms
+      setTimeout(() => {
+        feedback.textContent = 'Mensagem preparada! Confirme o envio no seu app de e-mail.';
+        feedback.className = 'cf-feedback ok';
+        btn.disabled = false;
+        btn.querySelector('.cf-submit-label').textContent = 'Enviar mensagem';
+        form.reset();
+      }, 800);
+    });
+
+    // Remove erro ao digitar
+    form.querySelectorAll('input, textarea').forEach(field => {
+      field.addEventListener('input', () => field.classList.remove('error'));
+    });
+  }
+
+    // Funções do Modal de Imagem
   window.openImageModal = function(wrapper) {
     const img = wrapper.querySelector('img');
     if (!img) return;
