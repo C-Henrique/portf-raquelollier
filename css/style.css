@@ -1028,6 +1028,13 @@ footer span { font-size:.7rem; color:var(--text-soft); letter-spacing:.05em; }
   nav, nav.s   { padding:1rem 1.5rem; }
   .dv          { margin:0 1.5rem; }
 
+  .case-images .img-large:hover, .case-images .img-small:hover {
+    transform: none; /* Desativa zoom no hover para evitar problemas de layout no tablet */
+  }
+  .top-15 {
+    top: auto;
+  }
+
   /* Hamburger visível */
   .hbtn { display:flex; }
 
@@ -1108,6 +1115,12 @@ footer span { font-size:.7rem; color:var(--text-soft); letter-spacing:.05em; }
   /* Previne overflow horizontal */
   body { overflow-x:hidden; }
   .hero, .sobre, .atuacao, .cases, .contato, footer, nav { max-width:100%; }
+  .case-images .img-large:hover, .case-images .img-small:hover {
+    transform: none; /* Desativa zoom no hover para evitar problemas de layout no tablet */
+  }
+  .top-15 {
+    top: auto;
+  }
 
   /* Formulário */
   .cf-row             { grid-template-columns:1fr; }
@@ -1217,5 +1230,11 @@ footer span { font-size:.7rem; color:var(--text-soft); letter-spacing:.05em; }
   .aitem-cta {
     opacity: 1 !important;
     transform: translateX(0) !important;
+  }
+  .case-images .img-large:hover, .case-images .img-small:hover {
+    transform: none; /* Desativa zoom no hover para evitar problemas de layout no tablet */
+  }
+  .top-15 {
+    top: auto;
   }
 }
