@@ -78,6 +78,8 @@ li::before { content: '✦'; color: var(--accent); display: inline-block; margin
 ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
 
 .top-15 { top: 15dvh; position: relative;}
+.h-100  { height: 100dvh !important }
+.h-53   { height: 53dvh !important }
 
 
 /* ─── 4. CURSOR ─── */
@@ -382,7 +384,10 @@ nav.s .hbtn span { background: var(--text); }
 }
 
 /* ─── 10. CASES ─── */
-.cases    { padding: 8rem 4rem; }
+.cases    { 
+  padding: 8rem 4rem;
+  margin-bottom: 6rem; /* Espaçamento para não invadir contato */
+}
 .cases-hd {
   margin-bottom: 3.5rem;
   display: flex;
@@ -399,7 +404,7 @@ nav.s .hbtn span { background: var(--text); }
 /* ── Galeria: 2 colunas no desktop ── */
 .cases-gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2.5rem;
   align-items: start;
   width: 100%;
@@ -509,7 +514,7 @@ nav.s .hbtn span { background: var(--text); }
 }
 
 
-.case-images .img-grid-g2 {
+.case-images .img-grid-g3 {
   display: grid;
   grid-template-columns: 2fr 2fr 1fr;
   gap: 10px;
@@ -522,7 +527,7 @@ nav.s .hbtn span { background: var(--text); }
 }
 
 
-.case-images .img-grid-g3 {
+.case-images .img-grid-g2 {
   display: grid;
   grid-template-columns: 2fr 2fr ;
   gap: 10px;
@@ -556,6 +561,130 @@ nav.s .hbtn span { background: var(--text); }
 .case-images .img-large:hover,
 .case-images .img-small:hover {
   transform: scale(1.02);
+}
+
+/* ── Video Wrapper ── */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--bg2);
+}
+
+.video-wrapper .case-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-wrapper .video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.video-wrapper .video-overlay svg {
+  width: 48px;
+  height: 48px;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.video-wrapper:hover .video-overlay {
+  opacity: 0;
+}
+
+/* Classes de tamanho para vídeo (igual imagens) */
+.video-small {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-large {
+  grid-row: span 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ajuste object-fit no vídeo */
+.video-wrapper .case-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Desktop: autoplay no hover */
+@media (hover: hover) {
+  .video-wrapper:hover .case-video {
+    animation: none;
+  }
+}
+
+/* ── Video Modal ── */
+.video-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.95);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-modal.active {
+  display: flex;
+}
+
+.video-modal .modal-content {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.video-modal .modal-video {
+  width: 100%;
+  max-width: 900px;
+  max-height: 80vh;
+  object-fit: contain;
+  background: #000;
+  border-radius: 8px;
+}
+
+.video-modal .modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-modal .modal-close:hover {
+  background: rgba(255,255,255,0.3);
 }
 
 /* ── Wrapper da imagem ──

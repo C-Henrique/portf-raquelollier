@@ -247,6 +247,76 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.classList.remove('active');
         document.body.style.overflow = '';
       }
+      const videoModal = document.getElementById('video-modal');
+      if (videoModal && videoModal.classList.contains('active')) {
+        closeVideoModal();
+      }
     }
   });
+
+  /* ─── VÍDEO: Hover (Desktop) ─── */
+  const isMobile = window.matchMedia('(hover: none)').matches;
+  
+  if (!isMobile) {
+    document.querySelectorAll('.video-wrapper').forEach(wrapper => {
+      const video = wrapper.querySelector('.case-video');
+      
+      wrapper.addEventListener('mouseenter', () => {
+        if (video) {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        }
+      });
+      
+      wrapper.addEventListener('mouseleave', () => {
+        if (video) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+    });
+  }
+
+  /* ─── MODAL DE VÍDEO ─── */
+  window.openVideoModal = function(wrapper) {
+    const video = wrapper.querySelector('.case-video');
+    if (!video) return;
+
+    const modal = document.getElementById('video-modal') || createVideoModal();
+    const modalVideo = modal.querySelector('.modal-video');
+    
+    modalVideo.src = video.querySelector('source').src;
+    modalVideo.poster = video.poster;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  function createVideoModal() {
+    const modal = document.createElement('div');
+    modal.id = 'video-modal';
+    modal.className = 'video-modal';
+    modal.onclick = closeVideoModal;
+    modal.innerHTML = `
+      <button class="modal-close" onclick="closeVideoModal(event)">&times;</button>
+      <div class="modal-content">
+        <video class="modal-video" controls autoplay muted playsinline></video>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    return modal;
+  }
+
+  window.closeVideoModal = function(event) {
+    if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) {
+      return;
+    }
+    const modal = document.getElementById('video-modal');
+    const video = modal?.querySelector('.modal-video');
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+    modal?.classList.remove('active');
+    document.body.style.overflow = '';
+  };
 });
