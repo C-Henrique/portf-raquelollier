@@ -171,102 +171,52 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* ─── 9. FORMULÁRIO DE CONTATO ─── */
-  const form     = document.getElementById('contactForm');
-  const feedback = document.getElementById('cfFeedback');
-
-  if (form) {
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      const btn = form.querySelector('.cf-submit');
-
-      // Validação simples
-      let valid = true;
-      form.querySelectorAll('[required]').forEach(field => {
-        field.classList.remove('error');
-        if (!field.value.trim()) {
-          field.classList.add('error');
-          valid = false;
-        }
-      });
-      const emailField = form.querySelector('#cf-email');
-      if (emailField && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
-        emailField.classList.add('error');
-        valid = false;
-      }
-
-      if (!valid) {
-        feedback.textContent = 'Preencha todos os campos corretamente.';
-        feedback.className = 'cf-feedback err';
-        return;
-      }
-
-      // Envia via mailto como fallback simples (sem backend)
-      const nome    = form.querySelector('#cf-nome').value.trim();
-      const email   = form.querySelector('#cf-email').value.trim();
-      const msg     = form.querySelector('#cf-msg').value.trim();
-      const subject = encodeURIComponent('Contato via portfólio — ' + nome);
-      const body    = encodeURIComponent(
-        'Nome: ' + nome + '\nE-mail: ' + email + '\n\n' + msg
-      );
-
-      btn.disabled = true;
-      btn.querySelector('.cf-submit-label').textContent = 'Enviando...';
-
-      // Tenta abrir client de e-mail
-      window.location.href = 'mailto:contato@raquelollier.com?subject=' + subject + '&body=' + body;
-
-      // Feedback visual após 800ms
-      setTimeout(() => {
-        feedback.textContent = 'Mensagem preparada! Confirme o envio no seu app de e-mail.';
-        feedback.className = 'cf-feedback ok';
-        btn.disabled = false;
-        btn.querySelector('.cf-submit-label').textContent = 'Enviar mensagem';
-        form.reset();
-      }, 800);
-    });
-
-    // Remove erro ao digitar
-    form.querySelectorAll('input, textarea').forEach(field => {
-      field.addEventListener('input', () => field.classList.remove('error'));
-    });
-  }
-
   /* ─── 10. FILTRO DE CASES POR ATUAÇÃO ─── */
   const atuacaoCards = document.querySelectorAll('.aitem');
   const caseCards = document.querySelectorAll('.case-card');
 
   function showCategory(category) {
     caseCards.forEach(c => {
-      if (c.dataset.category === category) {
-        c.style.display = 'flex';
+      const isMatch = c.dataset.category === category;
+      
+      if (isMatch) {
+        c.classList.remove('is-hidden');
+        c.classList.add('is-active');
         gsap.fromTo(c, 
-          { opacity: 0, y: 30 }, 
-          { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out' }
+          { visibility: 'hidden', y: 0, ease: 'none' }, 
+          { visibility: 'visible', y: 40, duration: 0.8, ease: 'power1.out' }
         );
       } else {
-        c.style.display = 'none';
+        c.classList.add('is-hidden');
+        c.classList.remove('is-active');
       }
     });
   }
 
-  showCategory('0');
+  // Detectar atuação ativa automaticamente
+  const activeAtuacao = document.querySelector('.aitem.is-active') || atuacaoCards[0];
+  const defaultCategory = activeAtuacao.dataset.filter;
+  showCategory(defaultCategory);
 
   atuacaoCards.forEach(card => {
     card.addEventListener('click', () => {
       const filter = card.dataset.filter;
 
-      atuacaoCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
+      atuacaoCards.forEach(c => c.classList.remove('is-active'));
+      card.classList.add('is-active');
 
       showCategory(filter);
-      document.getElementById('cases').scrollIntoView({ behavior: 'smooth' });
+      
+      document.getElementById('cases').scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
     });
   });
 
     // Funções do Modal de Imagem
-  window.openImageModal = function(wrapper) {
-    const img = wrapper.querySelector('img');
+  window.openImageModal = function(el) {
+    const img = el.tagName === 'IMG' ? el : el.querySelector('img');
     if (!img) return;
 
     const modal = document.getElementById('image-modal');

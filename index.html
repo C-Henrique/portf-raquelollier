@@ -13,8 +13,8 @@
   <!-- <link rel="canonical" href="https://raquelollier.com.br/"> -->
 
   <!-- Preload de fontes críticas -->
-  <link rel="preload" href="fonts/Dream-Avenue.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-  <link rel="preload" href="fonts/Montserrat-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="../fonts/Dream-Avenue.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="../fonts/Montserrat-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
   <!-- Favicon -->
   <!-- <link rel="icon" type="image/png" href="img/favicon.png"> -->
@@ -147,7 +147,7 @@
         direcionamento estratégico até a execução e gestão de conteúdo no dia a dia.</p>
     </div>
     <div class="agrid sr-s">
-      <button class="aitem active" data-filter="0">
+      <button class="aitem is-active" data-filter="0">
         <span class="anum">✦</span>
         <h3>Conteúdo & Social Media</h3>
         <p>Atuação focada na gestão e execução de conteúdo para presença digital. Envolve planejamento de feed, produção
@@ -187,37 +187,69 @@
 
     <div class="cases-gallery sr-s">
 
-      <article class="case-card" data-case="0" data-category="0">
-        <div class="case-img-wrapper case-img-tall" onclick="openImageModal(this)">
-          <img src="img/grid-insta.webp" alt="Grid Instagram do arquiteto - Fortalecimento de posicionamento"
-            loading="lazy" width="600" height="800">
-        </div>
-        <div class="case-content">
+      <article class="case-card case-full mosaic" data-case="0" data-category="0">
+        <div class="case-content gc-1 top-15">
           <span class="ctag">Posicionamento & Autoridade</span>
           <h3>Fortalecimento de posicionamento e autoridade</h3>
+          <h4>Contexto</h4>
           <p>Arquiteto com forte identidade precisava refinar a comunicação digital sem perder autenticidade.</p>
+          <h4>Desafio</h4>
+          <p>Criar uma presença digital que refletisse a expertise profissional.</p>
+          <h4>Solução</h4>
+          <p>Direção criativa, pilares de conteúdo e roteirização.</p>
+          </div>
+        <div class="case-images gc-2">
+          <div class="img-grid-g2">
+            <img src="img/social-m/person_1.jpeg" alt="Post 1" class="img-small" loading="lazy" onclick="openImageModal(this)">
+            <img src="img/social-m/grid-insta.webp" alt="Grid Instagram" class="img-small" loading="lazy" onclick="openImageModal(this)">
+          </div>
+        </div>
+      </article>
+
+       <article class="case-card case-full mosaic" data-case="0" data-category="0">
+         <div class="case-images gc-1">
+           <div class="img-grid-g3">
+             <img src="img/social-m/IMG_0876.JPG.jpeg" alt="Post 1" class="img-large" loading="lazy" onclick="openImageModal(this)">
+             <img src="img/social-m/IMG_0871.JPG.jpeg" alt="Grid Instagram" class="img-small" loading="lazy" onclick="openImageModal(this)">
+             <img src="img/social-m/IMG_0873.PNG" alt="Post 1" class="img-small" loading="lazy" onclick="openImageModal(this)">
+            </div>
+          </div>
+          <div class="case-content gc-2 top-15">
+          <span class="ctag">Posicionamento & Autoridade</span>
+          <h3>Conteúdo guiado por fala, presença e posicionamento.</h3>
+          <h4>Ações</h4>
+          <ul>
+            <li>Planejamento e gestão de conteúdo (feed + stories)</li>
+            <li>Definição de cronograma de feed</li>
+            <li>Captação em obras e projetos finalizados</li>
+            <li>Produção e edição de reels</li>
+            <li>Gestão de stories com presença diária</li>
+            <li>Direcionamento estratégico da comunicação digital para consolidação de autoridade no segmento.</li>
+            <li>Uso de trends e conteúdos rápidos</li>
+            <li>Acompanhamento e ajustes conforme resposta do público</li>
+          </ul>
+          <div class="cresult">
+            <label>Resultado</label>
+            <span>Presença digital mais ativa, consistente e alinhada à identidade do profissional, com maior conexão com o público.</span>
+          </div>
           <div class="chips">
             <span class="chip">Direção Criativa</span>
             <span class="chip">Pilares de Conteúdo</span>
             <span class="chip">Roteirização</span>
           </div>
-          <div class="cresult">
-            <label>Resultado</label>
-            <span>Autoridade consolidada e consistência estratégica elevada.</span>
-          </div>
         </div>
       </article>
 
-       <article class="case-card" data-case="0" data-category="0">
-        <div class="case-img-wrapper case-img-wide" onclick="openImageModal(this)">
-          <img src="img/planejamento-doc.webp" alt="Planejamento estratégico - Estruturação de marca" loading="lazy"
-            width="800" height="450">
-        </div>
+      <article class="case-card mosaic" data-case="1" data-category="1">
         <div class="case-content">
           <span class="ctag">Expansão de Posicionamento</span>
           <h3>Estruturação estratégica e expansão de posicionamento</h3>
-          <p>Escritório em fase de consolidação precisava separar marca pessoal da institucional e organizar produção de
-            conteúdo.</p>
+          <h4>Contexto</h4>
+          <p>Escritório em fase de consolidação precisava separar marca pessoal da institucional.</p>
+          <h4>Desafio</h4>
+          <p>Organizar produção de conteúdo em alta frequência.</p>
+          <h4>Solução</h4>
+          <p>Criação de sistema de conteúdo para ambas as marcas.</p>
           <div class="chips">
             <span class="chip">Posicionamento</span>
             <span class="chip">Marca Pessoal</span>
@@ -228,45 +260,27 @@
             <span>Clareza narrativa e autoridade digital crescente.</span>
           </div>
         </div>
-      </article>
-
-
-      <!-- Case 2: Estruturação Estratégica (direita) -->
-      <article class="case-card" data-case="1" data-category="1" style="display:none">
-        <div class="case-img-wrapper case-img-wide" onclick="openImageModal(this)">
-          <img src="img/planejamento-doc.jpeg" alt="Planejamento estratégico - Estruturação de marca" loading="lazy"
-            width="800" height="450">
-        </div>
-        <div class="case-content">
-          <span class="ctag">Expansão de Posicionamento</span>
-          <h3>Estruturação estratégica e expansão de posicionamento</h3>
-          <p>Escritório em fase de consolidação precisava separar marca pessoal da institucional e organizar produção de
-            conteúdo.</p>
-          <div class="chips">
-            <span class="chip">Posicionamento</span>
-            <span class="chip">Marca Pessoal</span>
-            <span class="chip">Marca Institucional</span>
-          </div>
-          <div class="cresult">
-            <label>Resultado</label>
-            <span>Clareza narrativa e autoridade digital crescente.</span>
+        <div class="case-images">
+          <div class="img-grid">
+            <img src="img/planejamento-doc.webp" alt="Planejamento" class="img-large" loading="lazy" onclick="openImageModal(this)">
+            <img src="img/banner.png" alt="Banner" class="img-small" loading="lazy" onclick="openImageModal(this)">
+            <img src="img/grid-insta.webp" alt="Resultado" class="img-small" loading="lazy" onclick="openImageModal(this)">
           </div>
         </div>
       </article>
 
-      <!-- Case 3: Estrutura Operacional (abaixo, full width) -->
-      <article class="case-card case-full" data-case="2" data-category="2" style="display:none">
-        <div class="case-img-wrapper">
-          <svg width="60" height="60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
-        </div>
+
+      <!-- Case 3: Estrutura Operacional (full width) -->
+      <article class="case-card case-full mosaic" data-case="2" data-category="2">
         <div class="case-content">
           <span class="ctag">Estrutura Operacional</span>
           <h3>Estruturação da base operacional de agência</h3>
-          <p>Crescimento trouxe complexidade: demandas centralizadas, sobreposição de funções e falhas de comunicação
-            entre atendimento, social media e criação.</p>
+          <h4>Contexto</h4>
+          <p>Crescimento trouxe complexidade: demandas centralizadas e sobreposição de funções.</p>
+          <h4>Desafio</h4>
+          <p>Falhas de comunicação entre atendimento, social media e criação.</p>
+          <h4>Solução</h4>
+          <p>Implementação de Asana, hierarquia clara e fluxo de aprovação.</p>
           <div class="chips">
             <span class="chip">Asana</span>
             <span class="chip">Atendimento</span>
@@ -275,7 +289,14 @@
           </div>
           <div class="cresult">
             <label>Impacto</label>
-            <span>Maior previsibilidade, redução de ruídos internos e clareza de papéis.</span>
+            <span>Maior previsibilidade e clareza de papéis.</span>
+          </div>
+        </div>
+        <div class="case-images">
+          <div class="img-grid">
+            <img src="img/255A9657.webp" alt="Processos" class="img-large" loading="lazy" onclick="openImageModal(this)">
+            <img src="img/255A9682.jpg" alt="Fluxo" class="img-small" loading="lazy" onclick="openImageModal(this)">
+            <img src="img/grid-insta.webp" alt="Resultado" class="img-small" loading="lazy" onclick="openImageModal(this)">
           </div>
         </div>
       </article>
