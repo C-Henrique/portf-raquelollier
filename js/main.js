@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.innerHTML = `
       <button class="modal-close" onclick="closeVideoModal(event)">&times;</button>
       <div class="modal-content">
-        <video class="modal-video" controls autoplay muted playsinline></video>
+        <video class="modal-video" oncontextmenu="return false;" controls controlsList="nodownload" autoplay muted playsinline disablePictureInPicture></video>
       </div>
     `;
     document.body.appendChild(modal);

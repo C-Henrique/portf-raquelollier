@@ -82,6 +82,7 @@ li::before { content: '✦'; color: var(--accent); display: inline-block; margin
 .h-53   { height: 53dvh !important }
 .h-45   { height: 45dvh !important }
 .h-m-80 { max-height: min(85dvh, 820px) !important; }
+.no-pointer { pointer-events: none; cursor: default !important; }
 
 
 /* ─── 4. CURSOR ─── */
@@ -529,10 +530,10 @@ nav.s .hbtn span { background: var(--text); }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  grid-template-areas:
-  "d1.."
-  ".d2."
-  "..d3";
+  grid-template-areas: 
+  ". . ."
+  "d1 d2 d3"
+  ". . .";
   gap: 10px;
   width: 100%;
   height: auto;
