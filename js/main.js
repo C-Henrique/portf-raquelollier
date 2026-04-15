@@ -11,17 +11,11 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  // console.log('main.js carregando...');
-  // console.log('gsap existe:', typeof gsap);
-  // console.log('ScrollTrigger existe:', typeof ScrollTrigger);
-
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    // console.error('GSAP ou ScrollTrigger não carregou!');
     return;
   }
 
   gsap.registerPlugin(ScrollTrigger);
-  // console.log('GSAP registrado com sucesso');
 
   /* ─── 1. CURSOR — apenas em dispositivos com mouse ─── */
   const isTouchDevice = window.matchMedia('(hover: none)').matches;
@@ -183,12 +177,12 @@ document.addEventListener('DOMContentLoaded', function () {
         c.classList.remove('is-hidden');
         c.classList.add('is-active');
         gsap.fromTo(c, 
-          { visibility: 'hidden', y: 0, ease: 'none' }, 
-          { visibility: 'visible', y: 40, duration: 0.8, ease: 'power1.out' }
+          { opacity: 0, y: 30 }, 
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
         );
       } else {
-        c.classList.add('is-hidden');
         c.classList.remove('is-active');
+        c.classList.add('is-hidden');
       }
     });
   }
@@ -211,6 +205,11 @@ document.addEventListener('DOMContentLoaded', function () {
         behavior: 'smooth',
         block: 'start'
       });
+
+      //Forçar refresh do ScrollTrigger após scroll para ativar GSAP nas seções seguintes
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 300);
     });
   });
 

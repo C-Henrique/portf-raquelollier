@@ -454,7 +454,7 @@ nav.s .hbtn span { background: var(--text); }
 
 .case-card.is-hidden {
   visibility: hidden;
-  display: none;
+  pointer-events: none;
   opacity: 0;
   transform: translateY(20px);
 }
