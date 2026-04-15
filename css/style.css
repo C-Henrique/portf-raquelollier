@@ -83,6 +83,7 @@ li::before { content: '✦'; color: var(--accent); display: inline-block; margin
 .h-45   { height: 45dvh !important }
 .h-m-80 { max-height: min(85dvh, 820px) !important; }
 .no-pointer { pointer-events: none; cursor: default !important; }
+.no-left-gap { left: 0 !important; }
 
 
 /* ─── 4. CURSOR ─── */
@@ -534,6 +535,21 @@ nav.s .hbtn span { background: var(--text); }
   ". . ."
   "d1 d2 d3"
   ". . .";
+  gap: 10px;
+  width: 100%;
+  height: auto;
+  padding: 8px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.case-images .img-grid-g2-d {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas: 
+  "d1 . "
+  ". d2";
   gap: 10px;
   width: 100%;
   height: auto;
