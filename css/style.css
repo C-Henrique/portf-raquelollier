@@ -84,6 +84,7 @@ li::before { content: '✦'; color: var(--accent); display: inline-block; margin
 .h-m-80 { max-height: min(85dvh, 820px) !important; }
 .no-pointer { pointer-events: none; cursor: default !important; }
 .no-left-gap { left: 0 !important; }
+.w-50 { width: 50dvh !important; }
 
 
 /* ─── 4. CURSOR ─── */
@@ -433,7 +434,13 @@ nav.s .hbtn span { background: var(--text); }
   display: grid !important;
   grid-template-columns: 1fr 1.3fr;
   gap: 3rem;
-  align-items: start;
+  align-items: center;
+}
+.case-card.mosaic-reduced {
+  display: grid !important;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3rem;
+  align-items: center;
 }
 
 .case-card.mosaic .gc-1 {
@@ -450,18 +457,23 @@ nav.s .hbtn span { background: var(--text); }
   transform: translateY(0);
   pointer-events: auto;
   position: relative;
+  display: inline-block;
 }
 
 .case-card.is-hidden {
   visibility: hidden;
   pointer-events: none;
   opacity: 0;
+  display: none;
   transform: translateY(20px);
 }
 
 /* Case full width especial */
 .case-card.case-full.mosaic {
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: 2fr 2fr;
+}
+.case-card.case-full.mosaic-reduced {
+  grid-template-columns: 1fr 2fr;
 }
 
 /* h4 subtítulos nos casos */
@@ -516,7 +528,7 @@ nav.s .hbtn span { background: var(--text); }
 
 .case-images .img-grid-g3 {
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr;
   gap: 10px;
   width: 100%;
   height: auto;
@@ -568,6 +580,18 @@ nav.s .hbtn span { background: var(--text); }
   grid-template-columns: 2fr 2fr ;
   gap: 10px;
   width: 100%;
+  height: auto;
+  max-height: 100dvh;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.case-images .img-grid-g1 {
+  display: flex;
+justify-content: center;
+  gap: 10px;
+  width: auto;
   height: auto;
   max-height: 100dvh;
   padding: 10px;
@@ -1171,6 +1195,10 @@ footer span { font-size:.7rem; color:var(--text-soft); letter-spacing:.05em; }
   
   /* Mosaic: texto em cima, imagens embaixo */
   .case-card.mosaic {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .case-card.mosaic-reduced {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
