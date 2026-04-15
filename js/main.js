@@ -165,55 +165,55 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* ─── 10. FILTRO DE CASES POR ATUAÇÃO ─── */
-  const atuacaoCards = document.querySelectorAll('.aitem');
-  const caseCards = document.querySelectorAll('.case-card');
-
-  function showCategory(category) {
-    caseCards.forEach(c => {
-      const isMatch = c.dataset.category === category;
+  /* ─── 10. NAVEGAÇÃO POR SCROLL NAS ATUAÇÕES ─── */
+  document.querySelectorAll('.aitem').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.aitem').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
       
-      if (isMatch) {
-        c.classList.remove('is-hidden');
-        c.classList.add('is-active');
-        gsap.fromTo(c, 
-          { opacity: 0, y: 30 }, 
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
-        );
-      } else {
-        c.classList.remove('is-active');
-        c.classList.add('is-hidden');
-      }
-    });
-  }
-
-  // Detectar atuação ativa automaticamente
-  const activeAtuacao = document.querySelector('.aitem.is-active') || atuacaoCards[0];
-  const defaultCategory = activeAtuacao.dataset.filter;
-  showCategory(defaultCategory);
-
-  atuacaoCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const filter = card.dataset.filter;
-
-      atuacaoCards.forEach(c => c.classList.remove('is-active'));
-      card.classList.add('is-active');
-
-      showCategory(filter);
+      const target = document.getElementById(btn.dataset.target);
+      if (!target) return;
       
-      document.getElementById('cases').scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-
-      //Forçar refresh do ScrollTrigger após scroll para ativar GSAP nas seções seguintes
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 300);
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      
+      setTimeout(() => ScrollTrigger.refresh(), 300);
     });
   });
 
-    // Funções do Modal de Imagem
+  /* ─── 11. CASES GROUP REVEAL ─── */
+  gsap.utils.toArray('.cases-group').forEach((section, i) => {
+    const header = section.querySelector('.cases-group-header');
+    if (!header) return;
+    
+    gsap.fromTo(header,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.8, delay: i * 0.1, ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  /* ─── 12. CASES GROUP SCROLL HIGHLIGHT (Desktop only) ─── */
+  if (window.matchMedia('(min-width: 769px)').matches) {
+    document.querySelectorAll('.cases-group').forEach(section => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 20%',
+        end: 'bottom 80%',
+        onEnter: () => section.classList.add('scrolled'),
+        onLeave: () => section.classList.remove('scrolled'),
+        onEnterBack: () => section.classList.add('scrolled'),
+        onLeaveBack: () => section.classList.remove('scrolled'),
+      });
+    });
+  }
+
+  // Funções do Modal de Imagem
   window.openImageModal = function(el) {
     const img = el.tagName === 'IMG' ? el : el.querySelector('img');
     if (!img) return;
