@@ -36,7 +36,9 @@
   --surface:     #ffffff;
   --text:        #18140f;
   --text-soft:   #7a6a5a;
+  --accent-title:#c26a35;
   --accent:      #c26a35;
+  --accent-alt:  #321104;
   --accent-lt:   #e8956a;
   --accent-glow: rgba(194,106,53,.13);
   --border:      rgba(194,106,53,.16);
@@ -49,6 +51,7 @@
   --text:        #f0eaf8;
   --text-soft:   #9080b0;
   --accent:      #c084fc;
+  --accent-alt:  #c4b5fd;
   --accent-lt:   #d4aaff;
   --accent-glow: rgba(192,132,252,.14);
   --border:      rgba(192,132,252,.16);
@@ -134,7 +137,7 @@ nav.s .tbtn::after { background:var(--accent); }
 }
 .nav-links a::after {
   content:''; position:absolute; bottom:-3px; left:0; right:0;
-  height:1px; background:var(--accent);
+  height:1px; background:var(--accent-alt);
   transform:scaleX(0); transform-origin:left; transition:transform .3s;
 }
 .nav-links a:hover          { color:var(--accent); }
@@ -238,7 +241,7 @@ nav.s .hbtn span { background: var(--text); }
   will-change:transform,opacity;
   text-transform: uppercase;
 }
-.hn-word.italic { color:var(--accent); }
+.hn-word.italic { color:var(--accent-title); }
 
 /* Rodapé hero */
 .hero-bot {
@@ -286,7 +289,7 @@ nav.s .hbtn span { background: var(--text); }
 }
 
 /* ─── 7. DIVIDER ─── */
-.dv { height:1px; background:var(--border); margin:0 4rem; }
+.dv { height:1px; background:var(--accent-alt); opacity:.15; margin:0 4rem; }
 
 /* ─── 8. SOBRE ─── */
 .sobre {
@@ -317,12 +320,12 @@ nav.s .hbtn span { background: var(--text); }
 
 .eyebrow {
   font-size:.67rem; font-weight:500; letter-spacing:.26em; text-transform:uppercase;
-  color:var(--accent); display:flex; align-items:center; gap:.7rem; margin-bottom:1.1rem;
+  color:var(--accent-alt); display:flex; align-items:center; gap:.7rem; margin-bottom:1.1rem;
 }
-.eyebrow::before { content:''; width:28px; height:1px; background:var(--accent); }
+.eyebrow::before { content:''; width:28px; height:1px; background:var(--accent-alt); }
 
-.stitle    { font-size:clamp(2.1rem,3.8vw,3.2rem); font-weight:400; line-height:1.12; color:var(--text); margin-bottom:1.8rem; }
-.stitle em { font-style:italic; color:var(--accent); }
+.stitle    {font-size:clamp(2.1rem,3.8vw,3.2rem);font-weight:400;line-height:1.12;color: var(--accent-alt);margin-bottom:1.8rem;}
+.stitle em {font-style:italic;color: var(--accent);}
 .sbody p   { font-size:.92rem; font-weight:300; line-height:1.85; color:var(--text-soft); margin-bottom:1rem; }
 .squote    { font-size:1.3rem; font-style:italic; color:var(--accent); border-left:2px solid var(--accent); padding-left:1.3rem; margin:2.2rem 0; line-height:1.45; }
 .stats     { display:flex; gap:2.4rem; padding-top:2rem; border-top:1px solid var(--border); margin-top:2.2rem; }
@@ -340,15 +343,15 @@ nav.s .hbtn span { background: var(--text); }
 }
 .aitem {
   background:var(--surface); padding:2.2rem;
-  position:relative; overflow:hidden; cursor:pointer; transition:background .35s;
-  border:none; text-align:left; width:100%;
+  position:relative; overflow:hidden; cursor:pointer; transition:background .35s, border-color .3s;
+  border:1px solid transparent; text-align:left; width:100%;
 }
 .aitem::after {
   content:''; position:absolute; inset:0;
   background:linear-gradient(135deg,var(--accent-glow),transparent 70%);
   opacity:0; transition:opacity .4s;
 }
-.aitem:hover        { background:var(--bg); }
+.aitem:hover        { background:var(--bg); border-color:var(--accent-alt); }
 .aitem:hover::after { opacity:1; }
 .aitem.is-active       { background:var(--bg); border:1px solid var(--accent); }
 .aitem.is-active::after{ opacity:1; }
@@ -418,6 +421,10 @@ nav.s .hbtn span { background: var(--text); }
   gap: 1rem;
   min-width: 0;
   width: 100%;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 0.75rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Mosaic Layout: texto + imagens lado a lado */
@@ -452,8 +459,8 @@ nav.s .hbtn span { background: var(--text); }
 }
 
 .cases-group.scrolled {
-  border: 2px solid var(--accent);
-  box-shadow: 0px 0px 10px var(--accent);
+  border: 2px solid var(--accent-alt);
+  box-shadow: 0px 0px 12px var(--accent-alt);
 }
 
 .cases-group-content {
@@ -884,18 +891,18 @@ justify-content: center;
 .case-content .chip {
   padding: 0.22rem 0.6rem;
   border-radius: 2px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent-alt);
   background: var(--accent-glow);
   font-size: 0.64rem;
   font-weight: 400;
   letter-spacing: 0.05em;
-  color: var(--text-soft);
+  color: var(--accent-alt);
 }
 
 .case-content .cresult {
   margin-top: 0.6rem;
   padding: 0.75rem 1rem;
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid var(--accent-alt);
   background: var(--accent-glow);
   border-radius: 0 3px 3px 0;
 }
@@ -904,7 +911,7 @@ justify-content: center;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-alt);
   display: block;
   margin-bottom: 0.2rem;
 }
